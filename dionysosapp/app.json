@@ -1,0 +1,17 @@
+{
+  "name": "dionysosapp",
+  "displayName": "dionysosapp",
+  "expo": {
+    "name": "dionysosapp",
+    "slug": "dionysosapp",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
