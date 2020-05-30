@@ -1,2 +1,0 @@
-- SAS token
-- incremental sync
