@@ -1,0 +1,3 @@
+- incremental sync between app and azure
+  - deny update if out of date?
+- "upgrade" dionysos-waiter to ts and share return type of login between app and azure function

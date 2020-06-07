@@ -7,7 +7,7 @@ import {
 } from './router/Router';
 
 const Home = React.lazy(() => import('./routes/Home'));
-const Login = React.lazy(() => import('./routes/Login'));
+const Login = React.lazy(() => import('./routes/login/Login'));
 
 
 export default function App() {
