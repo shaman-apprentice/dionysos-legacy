@@ -5,7 +5,7 @@ import { Input, Button } from 'react-native-elements';
 import { AzureContext } from '../../azure-api/AzureContext'
 import { getAzureCredentials } from './login-api';
 
-export default  function Login() {
+export function Login() {
   const [ username, setUsername ] = useState('');
   const [ pw, setPw ] = useState('');
   const [ isLoggingIn, setIsLoggingIn ] = useState(false);
@@ -16,7 +16,7 @@ export default  function Login() {
     const response = await getAzureCredentials(username, pw);
     if (response.status === 200) {
       const { host, sas } = await response.json();
-      setAzureServices(host, sas); // leads to login / re-routing
+      setAzureServices(host, sas); // leads to login /
     } else {
       setLoginError(await response.text());
       setIsLoggingIn(false);
@@ -52,5 +52,9 @@ export default  function Login() {
 const styles = StyleSheet.create({
   container: {
     maxWidth: 360,
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
