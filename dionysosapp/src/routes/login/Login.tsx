@@ -1,7 +1,8 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 
+import { AzureContext } from '../../azure-api/AzureContext'
 import { getAzureCredentials } from './login-api';
 
 export default  function Login() {
@@ -9,19 +10,15 @@ export default  function Login() {
   const [ pw, setPw ] = useState('');
   const [ isLoggingIn, setIsLoggingIn ] = useState(false);
   const [ loginError, setLoginError ] = useState('');
+  const setAzureServices = useContext(AzureContext).setServices
 
   const login = async () => {
-    try {
-      setIsLoggingIn(true);
-      const response = await getAzureCredentials(username, pw);
-      if (response.status === 200) {
-        // sas: string,
-        // host: string,
-        console.log(await response.json())
-      } else {
-        setLoginError(await response.text());
-      }
-    } finally {
+    const response = await getAzureCredentials(username, pw);
+    if (response.status === 200) {
+      const { host, sas } = await response.json();
+      setAzureServices(host, sas); // leads to login / re-routing
+    } else {
+      setLoginError(await response.text());
       setIsLoggingIn(false);
     }
   };
@@ -54,9 +51,6 @@ export default  function Login() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    maxWidth: 360,
   },
 });
