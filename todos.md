@@ -1,3 +1,4 @@
+- azure-storage in react-native!!!
 - incremental sync between app and azure
   - deny update if out of date?
 - loading component
