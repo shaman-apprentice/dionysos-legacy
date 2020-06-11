@@ -16,7 +16,8 @@ export function Login() {
     const response = await getAzureCredentials(username, pw);
     if (response.status === 200) {
       const { host, sas } = await response.json();
-      setAzureServices(host, sas); // leads to login /
+      // todo investigate update of unmounted component
+      setAzureServices(host, sas); // leads to login / "redirect to app"
     } else {
       setLoginError(await response.text());
       setIsLoggingIn(false);
@@ -43,7 +44,6 @@ export function Login() {
       title="Login"
       onPress={login}
       containerStyle={{width: '90%'}}
-      loading={isLoggingIn}
       disabled={isLoggingIn || !username || !pw}
     />
   </View>
