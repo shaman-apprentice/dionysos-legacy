@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 
 import { AzureContext } from '../../azure-api/AzureContext'
-import { getAzureCredentials } from './login-api';
+import { getAzureCredentials } from './loginApi';
 
 export function Login() {
   const [ username, setUsername ] = useState('');
