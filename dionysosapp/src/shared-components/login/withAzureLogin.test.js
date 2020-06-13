@@ -58,22 +58,25 @@ it('calls loginApi not again before first call is finished', () => {
     app.root.findByProps({ label: 'Password' }).props.onChangeText('no-body-cares');
   });
 
-  app.root.findByProps({ title: 'Login' }).props.onPress();
-  app.root.findByProps({ title: 'Login' }).props.onPress();
+  act(() => {
+    app.root.findByProps({ title: 'Login' }).props.onPress();
+    app.root.findByProps({ title: 'Login' }).props.onPress();
+  });
   expect(getAzureCredentials).toHaveBeenCalledTimes(1);
 });
 
-const simulateLogin = async (app, user, pw) => {
-  getAzureCredentials.mockImplementation(async (username, pw) =>
-      (username === 'James' && pw === 'top-secret')
-        ? { status: 200, json: async () => ({ sas: 'some-token', host: 'some-host' }) }
-        : { status: 403, text: async () => 'some-error' } );
-
-  act(() => {
-    app.root.findByProps({ label: 'Username' }).props.onChangeText(user);
-    app.root.findByProps({ label: 'Password' }).props.onChangeText(pw);
+const simulateLogin = (app, user, pw) =>
+  act(async () => { // this act for the update of `isLoggingIn`
+    getAzureCredentials.mockImplementation(async (username, pw) =>
+        (username === 'James' && pw === 'top-secret')
+          ? { status: 200, json: async () => ({ sas: 'some-token', host: 'some-host' }) }
+          : { status: 403, text: async () => 'some-error' } );
+  
+    act(() => {
+      app.root.findByProps({ label: 'Username' }).props.onChangeText(user);
+      app.root.findByProps({ label: 'Password' }).props.onChangeText(pw);
+    });
+  
+    app.root.findByProps({ title: 'Login' }).props.onPress();
+    await act(async () => await Promise.resolve()); // wait for (above mocked) async call to azure and context update afterwards
   });
-
-  app.root.findByProps({ title: 'Login' }).props.onPress();
-  await act(async () => await Promise.resolve()); // wait for (above mocked) async call to azure and context update afterwards
-}

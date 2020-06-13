@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 
@@ -12,19 +12,28 @@ export function Login() {
   const [ loginError, setLoginError ] = useState('');
   const { setServices } = useContext(AzureContext);
 
-  const login = async () => {
-    // todo setIsLoggingIn(true)
-    const response = await getAzureCredentials(username, pw);
+  const onLoginPressed = useCallback(() => {
+    setIsLoggingIn(true);
+  }, [ setIsLoggingIn ]);
 
-    if (response.status === 200) {
-      const { host, sas } = await response.json();
-      // todo investigate update of unmounted component
-      setServices(host, sas); // leads to login / "redirect to app" via `withAzureLogin.tsx`
-    } else {
-      setLoginError(await response.text());
-      setIsLoggingIn(false);
+  useEffect(() => {
+    if (!isLoggingIn)
+      return;
+     
+    login();
+     
+    async function login() {
+      const response = await getAzureCredentials(username, pw);
+      
+      if (response.status === 200) {
+        const { host, sas } = await response.json();
+        setServices(host, sas); // leads to login / "redirect to app" via `withAzureLogin HoC`
+      } else {
+        setLoginError(await response.text());
+        setIsLoggingIn(false);
+      }
     }
-  };
+  }, [ isLoggingIn ]);
 
   return <View style={styles.container}>
     <Input 
@@ -44,7 +53,7 @@ export function Login() {
     />
     <Button
       title="Login"
-      onPress={login}
+      onPress={onLoginPressed}
       containerStyle={{width: '90%'}}
       disabled={isLoggingIn || !username || !pw}
     />
