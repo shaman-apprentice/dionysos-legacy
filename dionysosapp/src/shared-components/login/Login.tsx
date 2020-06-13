@@ -10,14 +10,16 @@ export function Login() {
   const [ pw, setPw ] = useState('');
   const [ isLoggingIn, setIsLoggingIn ] = useState(false);
   const [ loginError, setLoginError ] = useState('');
-  const setAzureServices = useContext(AzureContext).setServices
+  const { setServices } = useContext(AzureContext);
 
   const login = async () => {
+    // todo setIsLoggingIn(true)
     const response = await getAzureCredentials(username, pw);
+
     if (response.status === 200) {
       const { host, sas } = await response.json();
       // todo investigate update of unmounted component
-      setAzureServices(host, sas); // leads to login / "redirect to app"
+      setServices(host, sas); // leads to login / "redirect to app" via `withAzureLogin.tsx`
     } else {
       setLoginError(await response.text());
       setIsLoggingIn(false);
