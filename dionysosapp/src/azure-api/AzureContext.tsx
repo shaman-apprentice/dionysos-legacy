@@ -3,7 +3,7 @@ import { IServices, createServices } from './Services';
 
 const defaultContext: IAzureContext = {
   // @ts-ignore `process.env.azureStorageConnectionString` is added through babel-plugin-inline-dotenv
-  services: __DEV__ && process.env.azureStorageConnectionString !== ''
+  services: __DEV__ && process.env.azureStorageConnectionString
     ? { tableService: 'todo', blobService: null }
     : null, 
   setServices: (host: string, tableSAS: string) => {},
