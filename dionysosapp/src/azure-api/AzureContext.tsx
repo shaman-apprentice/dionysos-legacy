@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import { IServices, createServices } from './Services';
 
-export const AzureContext = React.createContext<IAzureContext>({
-  services: null,
+const defaultContext: IAzureContext = {
+  // @ts-ignore `process.env.azureStorageConnectionString` is added through babel-plugin-inline-dotenv
+  services: __DEV__ && process.env.azureStorageConnectionString !== ''
+    ? { tableService: 'todo', blobService: null }
+    : null, 
   setServices: (host: string, tableSAS: string) => {},
   resetServices: () => {},
-});
+}
+
+export const AzureContext = React.createContext<IAzureContext>(defaultContext);
  
 export function AzureContextProvider(props: React.PropsWithChildren<{}>) {
-  const [services, setServices] = useState<IServices | null>(null);
+  const [services, setServices] = useState<IServices | null>(defaultContext.services);
 
   return <AzureContext.Provider value={{
     services,
