@@ -1,5 +1,7 @@
 - unify (default) export usage
-- test for lazy route loading
-
-- table overview
+- test for code splitting and lazy route loading (**integration** test)
+  - spawn local server
+  - start puppeteer
+  - test in puppeteer
+- table overview / list item
 - form
