@@ -13,7 +13,7 @@ export const routeMapping: {[path: string]: RouteDescription} = {
     label: 'View wines',
     component: WineOverview,
   },
-  '/add-wine': {
+  '/edit-wine': {
     label: 'Add a wine',
     component: EditWine,
   },
