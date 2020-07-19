@@ -4,4 +4,5 @@ export {
   Link, 
   Switch,
   withRouter,
+  RouteComponentProps,
  } from 'react-router-dom';
