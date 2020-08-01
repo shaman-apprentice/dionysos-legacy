@@ -3,5 +3,7 @@
   - spawn local server
   - start puppeteer
   - test in puppeteer
-- table overview / list item
-- form
+
+# nice to have feature
+- wine list overview with icons for values and nice layout instead of plain text
+- attach a image to a wine
