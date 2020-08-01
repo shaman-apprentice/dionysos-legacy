@@ -1,8 +1,10 @@
+export type Sweetness = 'dry' | 'medium dry' | 'medium sweet' | 'sweet';
+
 export type Wine = {
   PartitionKey: string,
   RowKey: string,
   Timestamp: number,
-  sweetness: 'dry' | 'medium dry' | 'medium sweet' | 'sweet',
+  sweetness: Sweetness,
   color: string,
   rating: number,
   area?: string,
