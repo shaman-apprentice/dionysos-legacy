@@ -1,86 +1,43 @@
-// import React from 'react';
-// import { View, ScrollView } from 'react-native';
-// import { Table, TableWrapper } from 'react-native-table-component';
+import React from 'react';
+import { StyleSheet, View, Text, FlatList, TouchableOpacity } from 'react-native';
 
-// import { wines } from './__mocks__/wines';
-// import WineTableHeader from './WineTableHeader';
-// import WineRows from './WineRows';
+import { Wine } from '../../../types/Wine';
+import { wines } from './__mocks__/wines';
 
-import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
-import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
-
-export default class ExampleFour extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tableHead: ['Head', 'Head2', 'Head3', 'Head4'],
-      tableData: [
-        ['1', '2', '3', '4'],
-        ['a', 'b', 'c', 'd'],
-        ['1', '2', '3', '4'],
-        ['a', 'b', 'c', 'd']
-      ]
-    }
-  }
-
-  _alertIndex(index) {
-    Alert.alert(`This is row ${index + 1}`);
-  }
-
-  render() {
-    const state = this.state;
-    const element = (data, index) => (
-      <TouchableOpacity onPress={() => this._alertIndex(index)}>
-        <View style={styles.btn}>
-          <Text style={styles.btnText}>button</Text>
-        </View>
-      </TouchableOpacity>
-    );
-
-    return (
-      <View style={styles.container}>
-        <Table borderStyle={{borderColor: 'transparent'}}>
-          <Row data={state.tableHead} style={styles.head} textStyle={styles.text}/>
-          {
-            state.tableData.map((rowData, index) => (
-              <TableWrapper key={index} style={styles.row}>
-                {
-                  rowData.map((cellData, cellIndex) => (
-                    <Cell key={cellIndex} data={cellIndex === 3 ? element(cellData, index) : cellData} textStyle={styles.text}/>
-                  ))
-                }
-              </TableWrapper>
-            ))
-          }
-        </Table>
-      </View>
-    )
-  }
+export default function WineOverview() {
+  return <View style={styles.container}>
+    <FlatList
+      data={wines}
+      keyExtractor={(wine) => wine.RowKey}
+      renderItem={renderWine}
+    />
+  </View>
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
-  head: { height: 40, backgroundColor: '#808B97' },
-  text: { margin: 6 },
-  row: { flexDirection: 'row', backgroundColor: '#FFF1C1' },
-  btn: { width: 58, height: 18, backgroundColor: '#78B7BB',  borderRadius: 2 },
-  btnText: { textAlign: 'center', color: '#fff' }
+  wineItem: {
+    borderStyle: 'solid',
+    borderColor: 'black',
+    borderWidth: 1,
+    padding: 15,
+  }
 });
 
+const renderWine = (wineItem) => {
+  const wine = wineItem.item;
 
-// export default function WineOverview(props: any) {
-//   return <ScrollView horizontal={true}>
-//     <Table>
-//         <WineTableHeader />
-//         <ScrollView style={{ margin: -1 }}>
-//           <WineRows wines={wines}/>
-//         </ScrollView>
-//       </Table>
-//     </ScrollView>
-// }
-
-//         borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}
-
-
-// It will be necessary to re-build your native projects to compile the updated dependencies. You will need to run pod install in your ios directory before re-building the iOS project.
+  return <TouchableOpacity onPress={(ab, cd, ef) => {
+    alert("Hi " + wine.color)}}>
+    <View
+      style={styles.wineItem}
+    >
+      <Text
+        key={wine.RowKey}
+        style={styles.item}
+      >
+        {wine.rating} {new Date(wine.Timestamp).toLocaleString('en-GB', { year: 'numeric', month: 'numeric', day: 'numeric' })} {wine.color} {wine.sweetness}
+      </Text>
+    </View>
+  </TouchableOpacity>
+}
