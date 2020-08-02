@@ -5,7 +5,6 @@ import renderer, { act } from 'react-test-renderer';
 import { withLogin } from './withLogin';
 import { Login } from './Login';
 
-// todo move mock into azure-api
 const { createAzureServices } = require('../../azure-api/azureApi');
 jest.mock('../../azure-api/azureApi');
 
