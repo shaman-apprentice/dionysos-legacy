@@ -1,14 +1,13 @@
 import React from 'react';
 
 import { AzureContextProvider, AzureContext } from '../../azure-api/AzureContext';
-import { Login } from "./Login";
+import { Login } from './Login';
 
-export const withAzureLogin = (Component: React.ComponentType ) =>
+export const withLogin = (Component: React.ComponentType) =>
   function() {
     return <AzureContextProvider>
       <AzureContext.Consumer>
-        { ({ services }) => {
-          const isLoggedIn = services !== null;
+        { ({ isLoggedIn }) => {
           if (!isLoggedIn)
             return <Login />
 

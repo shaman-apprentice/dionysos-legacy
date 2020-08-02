@@ -2,18 +2,19 @@ import 'react-native';
 import React from 'React';
 import renderer, { act } from 'react-test-renderer';
 
-import { withAzureLogin } from './withAzureLogin';
+import { withLogin } from './withLogin';
 import { Login } from './Login';
 
-const { getAzureCredentials } = require('./loginApi');
-jest.mock('./loginApi');
+// todo move mock into azure-api
+const { createAzureServices } = require('../../azure-api/azureApi');
+jest.mock('../../azure-api/azureApi');
 
 const TestComponent = () => null;
 let TestComponentWithLogin;
 
 beforeEach(() => {
-  TestComponentWithLogin = withAzureLogin(TestComponent);
-  getAzureCredentials.mockReset();
+  TestComponentWithLogin = withLogin(TestComponent);
+  createAzureServices.mockReset();
 });
 
 it('shows initially only Login', () => {
@@ -51,32 +52,36 @@ it('redirects to app on valid login', async () => {
   expect(() => app.root.findByType(TestComponent)).not.toThrow();
 });
 
-it('calls loginApi not again before first call is finished', () => {
+it('calls loginApi not again before first call is finished', async () => {
   const app = renderer.create(<TestComponentWithLogin />);
   act(() => {
     app.root.findByProps({ label: 'Username' }).props.onChangeText('Horst');
     app.root.findByProps({ label: 'Password' }).props.onChangeText('no-body-cares');
   });
 
-  act(() => {
+  await act(async () => { // async because onPress internal async `login is executed`
     app.root.findByProps({ title: 'Login' }).props.onPress();
     app.root.findByProps({ title: 'Login' }).props.onPress();
   });
-  expect(getAzureCredentials).toHaveBeenCalledTimes(1);
+
+  expect(createAzureServices).toHaveBeenCalledTimes(1);
 });
 
 const simulateLogin = (app, user, pw) =>
   act(async () => { // this act for the update of `isLoggingIn`
-    getAzureCredentials.mockImplementation(async (username, pw) =>
-        (username === 'James' && pw === 'top-secret')
-          ? { status: 200, json: async () => ({ sas: 'some-token', host: 'some-host' }) }
-          : { status: 403, text: async () => 'some-error' } );
-  
+    createAzureServices.mockImplementation(async (username, pw) => {
+      if (username === 'James' && pw === 'top-secret')
+        return { tableService: null, blobService: null }
+    
+      throw new Error('some-error');
+    });
+
     act(() => {
       app.root.findByProps({ label: 'Username' }).props.onChangeText(user);
       app.root.findByProps({ label: 'Password' }).props.onChangeText(pw);
     });
   
-    app.root.findByProps({ title: 'Login' }).props.onPress();
-    await act(async () => await Promise.resolve()); // wait for (above mocked) async call to azure and context update afterwards
+    await act(async () => { // async because onPress internal async `login is executed`
+      app.root.findByProps({ title: 'Login' }).props.onPress();
+    });
   });

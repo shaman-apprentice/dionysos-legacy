@@ -3,14 +3,13 @@ import { View, StyleSheet } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 
 import { AzureContext } from '../../azure-api/AzureContext'
-import { getAzureCredentials } from './loginApi';
 
 export function Login() {
-  const [ username, setUsername ] = useState('');
+  const [ user, setUser ] = useState('');
   const [ pw, setPw ] = useState('');
   const [ isLoggingIn, setIsLoggingIn ] = useState(false);
   const [ loginError, setLoginError ] = useState('');
-  const { setServices } = useContext(AzureContext);
+  const { login } = useContext(AzureContext);
 
   const onLoginPressed = useCallback(() => {
     setIsLoggingIn(true);
@@ -19,27 +18,18 @@ export function Login() {
   useEffect(() => {
     if (!isLoggingIn)
       return;
-     
-    login();
-     
-    async function login() {
-      const response = await getAzureCredentials(username, pw);
-      
-      if (response.status === 200) {
-        const { host, sas } = await response.json();
-        setServices(host, sas); // leads to login / "redirect to app" via `withAzureLogin HoC`
-      } else {
-        setLoginError(await response.text());
-        setIsLoggingIn(false);
-      }
-    }
+    
+    login(user, pw).catch(error => {
+      setLoginError(error.message);
+      setIsLoggingIn(false);
+    });
   }, [ isLoggingIn ]);
 
   return <View style={styles.container}>
     <Input 
       label="Username"
       placeholder="Username"
-      onChangeText={setUsername}
+      onChangeText={setUser}
       disabled={isLoggingIn}
       errorMessage={loginError}
       />
@@ -55,7 +45,7 @@ export function Login() {
       title="Login"
       onPress={onLoginPressed}
       containerStyle={{width: '90%'}}
-      disabled={isLoggingIn || !username || !pw}
+      disabled={isLoggingIn || !user || !pw}
     />
   </View>
 } 

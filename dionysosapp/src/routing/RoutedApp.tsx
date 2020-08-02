@@ -3,12 +3,12 @@ import { StyleSheet, View } from 'react-native';
 
 import { Text } from 'react-native-elements';
 
-import { withAzureLogin } from './login/withAzureLogin';
+import { withLogin } from './login/withLogin';
 import { Router, Switch, Route } from './router';
 import Header from './header';
 import { routeMapping } from './routesMapping';
 
-export default withAzureLogin(function RoutedApp() {
+export default withLogin(function RoutedApp() {
   return <View style={styles.appView}>
     <React.Suspense fallback={<Text>Loading...</Text>}>
       <Router>
