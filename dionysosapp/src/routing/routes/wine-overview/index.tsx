@@ -4,12 +4,13 @@ import { withRouter, RouteComponentProps } from '../../router';
 
 import { wines } from './__mocks__/wines';
 import WineRow from './WineRow';
+import { Wine } from '../../../types/wine';
 
 export default withRouter(function WineOverview(props: RouteComponentProps) {
   return <View style={styles.container}>
     <FlatList
       data={wines}
-      keyExtractor={(wine) => wine.RowKey}
+      keyExtractor={(wine: Wine) => wine.RowKey}
       renderItem={item => <WineRow
         item={item.item}
         pushHistory={props.history.push}
