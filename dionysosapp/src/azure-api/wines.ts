@@ -1,6 +1,6 @@
-import { Wine } from '../../../../types/wine';
+import { Wine } from '../types/wine';
 
-export const wines: Wine[] = [
+const wineArray: Wine[] = [
   {
     PartitionKey: '1',
     RowKey: '1',
@@ -153,4 +153,9 @@ export const wines: Wine[] = [
     color: 'white',
     sweetness: 'medium sweet',
   },
-]; 
+];
+
+export const wines = wineArray.reduce((acc, wine) => {
+  acc[wine.RowKey] = wine;
+  return acc;
+}, {} as {[RowKey: string]: Wine});
