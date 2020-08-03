@@ -7,6 +7,7 @@ import { withLogin } from './login/withLogin';
 import { Router, Switch, Route } from './router';
 import Header from './header';
 import { routeMapping } from './routesMapping';
+import Home from './routes/home';
 
 export default withLogin(function RoutedApp() {
   return <View style={styles.appView}>
@@ -20,12 +21,12 @@ export default withLogin(function RoutedApp() {
               Object.entries(routeMapping).map(([path, desc]) => 
                 <Route
                   key={path}
-                  exact
                   path={path}
                   component={desc.component}
                 />
               )
             }
+            <Route component={Home} />
           </Switch>
         </View>
       </Router>

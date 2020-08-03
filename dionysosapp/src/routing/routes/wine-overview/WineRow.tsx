@@ -18,7 +18,7 @@ export default function WineRow(props: WineRowProps) {
   const wine = props.item;
   
   return <TouchableOpacity onPress={() => {
-    props.pushHistory(`/edit-wine?key=${wine.RowKey}`);
+    props.pushHistory(`/edit-wine/${wine.RowKey}`);
   }}>
     <View style={styles.wineItem}>
       <Text>

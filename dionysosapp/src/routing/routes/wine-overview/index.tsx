@@ -1,13 +1,14 @@
 import React, { useContext } from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 
-import { withRouter, RouteComponentProps } from '../../router';
+import { useHistory } from '../../router';
 import { AzureContext } from '../../../azure-api/AzureContext'
 import WineRow from './WineRow';
 import { Wine } from '../../../types/wine';
 
-export default withRouter(function WineOverview(props: RouteComponentProps) {
+export default function WineOverview() {
   const { wines } = useContext(AzureContext);
+  const history = useHistory();
 
   return <View style={styles.container}>
     <FlatList
@@ -15,11 +16,11 @@ export default withRouter(function WineOverview(props: RouteComponentProps) {
       keyExtractor={(wine: Wine) => wine.RowKey}
       renderItem={item => <WineRow
         item={item.item}
-        pushHistory={props.history.push}
+        pushHistory={history.push}
       />}
     />
   </View>
-});
+}
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, paddingTop: 30 },
