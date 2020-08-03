@@ -3,7 +3,7 @@ export {
   Route, 
   Link, 
   Switch,
-  withRouter,
   useHistory,
   useParams,
+  useLocation,
  } from 'react-router-native';
