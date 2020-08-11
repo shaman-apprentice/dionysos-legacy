@@ -6,7 +6,6 @@ import { Text } from 'react-native-elements';
 import { withLogin } from './login/withLogin';
 import { Router, Switch, Route } from './router';
 import Header from './header';
-import { routeMapping } from './routesMapping';
 import Home from './routes/home';
 
 export default withLogin(function RoutedApp() {
@@ -17,15 +16,14 @@ export default withLogin(function RoutedApp() {
 
         <View style={styles.container}>
           <Switch>
-            {
-              Object.entries(routeMapping).map(([path, desc]) => 
-                <Route
-                  key={path}
-                  path={path}
-                  component={desc.component}
-                />
-              )
-            }
+            <Route
+              path="/wine-overview"
+              component={React.lazy(() => import('./routes/wine-overview'))}
+            />
+            <Route
+              path="/edit-wine/:RowKey"
+              component={React.lazy(() => import('./routes/edit-wine'))}
+            />
             <Route component={Home} />
           </Switch>
         </View>

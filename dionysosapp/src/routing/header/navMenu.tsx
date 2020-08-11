@@ -3,24 +3,27 @@ import React from 'react';
 import { Picker } from 'react-native'
 
 import { useLocation, useHistory } from '../router';
-import { routeMapping } from '../routesMapping';
+import { navigationRoutes, getValueFromLocation, updateLocation } from './navigationRoutes';
 
-// todo fix this
 export default function NavMenu() {
   const location = useLocation();
   const history = useHistory();
 
-  console.log(JSON.stringify(location, null, 2))
   return <Picker
     style={{ height: 49, width: 150 }}
     mode="dropdown"
-    selectedValue={location.pathname.includes('wine-overview')}
-    onValueChange={(itemValue, itemIndex) => {
-      history.push(itemValue);
+    selectedValue={getValueFromLocation(location.pathname)}
+    onValueChange={itemValue => {
+      updateLocation(location.pathname, itemValue, history.push);
     } }>
-        <Picker.Item
-          value="/wine-overview"
-          label="View Wines"
-        />
+      {
+        navigationRoutes.map(navRoute =>
+          <Picker.Item
+            key={navRoute.value}
+            label={navRoute.label}
+            value={navRoute.value}
+          />
+        )
+      }
   </Picker>
 }

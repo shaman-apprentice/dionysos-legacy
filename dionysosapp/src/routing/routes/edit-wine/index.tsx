@@ -9,6 +9,8 @@ export default function EditWine() {
   const { wines } = useContext(AzureContext);
 
   const { RowKey } = useParams()
+  console.log('RowKey:', RowKey);
+  console.log('Wines:', wines[RowKey] );
   const wine: Wine = wines[RowKey] ?? {
     PartitionKey: '1',
     RowKey: '-1',

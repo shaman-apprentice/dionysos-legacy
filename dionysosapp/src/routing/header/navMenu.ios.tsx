@@ -4,7 +4,8 @@ import Picker from 'react-native-picker-select'
 import { FontAwesome5 } from '@expo/vector-icons';
 
 import { useLocation, useHistory } from '../router';
-import { routeMapping } from '../routesMapping';
+
+import { navigationRoutes, getValueFromLocation, updateLocation } from './navigationRoutes';
 
 export default function NavMenu() {
   const history = useHistory();
@@ -12,13 +13,11 @@ export default function NavMenu() {
 
   return <Picker
     placeholder={{}}
-    value={location.pathname}
-    onValueChange={(itemValue, itemIndex) => {
-      history.push(itemValue);
+    value={getValueFromLocation(location.pathname)}
+    onValueChange={itemValue => {
+      updateLocation(location.pathname, itemValue, history.push);
     } }
-    items={Object.entries(routeMapping).map(([path, desc]) =>
-      ({ label: desc.label, value: path})
-    ) }
+    items={navigationRoutes}
     Icon={() => <FontAwesome5 name="caret-down" size={16}/>}
     style={{
       inputIOS: {
