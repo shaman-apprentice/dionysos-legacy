@@ -11,6 +11,7 @@ export type Wine = {
   grape?: string,
   price?: string,
   brand?: string,
+  vintage?: number,
   comment?: string,
   image?: string, // href
 }
