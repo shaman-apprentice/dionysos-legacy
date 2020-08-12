@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { Text } from 'react-native';
 
 import { useParams } from '../../router';
 import { AzureContext } from '../../../azure-api/AzureContext';
