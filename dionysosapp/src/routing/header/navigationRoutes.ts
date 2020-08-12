@@ -18,7 +18,7 @@ export const getValueFromLocation = (path: string) => {
 }
 
 export const updateLocation = (currentLoc: string, newLoc: string, update: Function) => {
-  if (currentLoc.split('/')[1] === newLoc.split('/')[1]) // e.g. /edit-wine/-1 -> /edit-wine/2
+  if (currentLoc.split('/')[1] === newLoc.split('/')[1]) // e.g. /edit-wine/2 -> /edit-wine/-1 
     return;
 
   update(newLoc);
