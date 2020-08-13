@@ -6,7 +6,7 @@ import { Button } from 'react-native-elements';
 
 import { Wine } from '../../../types/wine';
 import { FormTextField } from './FormTextField';
-import { FormWineTimestampField } from './FormWineTimestampField';
+import { FormWineTimestampField } from './FormTimestampField';
 
 export function WineForm(props: { wine : Wine }) {
   return <View style={styles.form}>
