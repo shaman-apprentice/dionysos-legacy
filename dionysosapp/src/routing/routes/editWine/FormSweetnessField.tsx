@@ -11,6 +11,9 @@ export function FormSweetnessField(props:  FormSweetnessFieldProps) {
   }, []);
 
   return <Picker
+    style={{
+      viewContainer: { paddingLeft: 8 },
+    }}
     value={props.wine.sweetness}
     items={sweetnessItems}
     onValueChange={value => {

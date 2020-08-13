@@ -10,6 +10,7 @@ export default function Header() {
     containerStyle={{
       height: Platform.OS === 'ios' ? 75 : 50,
       backgroundColor: '#3D6DCC',
+      marginBottom: 16,
     }}
     rightComponent={<NavMenu />}
   ></RNHeader>

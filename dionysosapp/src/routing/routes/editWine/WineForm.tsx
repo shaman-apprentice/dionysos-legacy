@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 import { Formik } from 'formik';
 import { Button } from 'react-native-elements';
 
@@ -24,7 +24,11 @@ export function WineForm(props: { wine : Wine }) {
         <FormTextField wine={wine} wineField="color" />
         <FormTextField wine={wine} wineField="brand" />
         <FormSweetnessField wine={wine} />
-        <Button onPress={handleSubmit as any} title="Submit" />
+        <Button
+          containerStyle={{ paddingTop: 8, width: '100%' }}
+          onPress={handleSubmit as any}
+          title="Submit"
+        />
       </>}
     </Formik>
   </View>
@@ -33,8 +37,9 @@ export function WineForm(props: { wine : Wine }) {
 const styles = StyleSheet.create({
   form: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    maxWidth: 1024,
-  }
+    ...(Platform.OS === 'web'
+      ? { alignItems: 'center', justifyContent: 'center', width: 400 }
+      : { alignSelf: 'stretch'}
+    ),
+  },
 });
