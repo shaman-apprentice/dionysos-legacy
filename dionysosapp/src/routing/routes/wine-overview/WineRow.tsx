@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
 import { Sweetness } from '../../../types/Wine';
+import { formatDate } from '../../../utils/dateHelper';
 
 interface WineRowProps {
   item: {
@@ -22,7 +23,7 @@ export default function WineRow(props: WineRowProps) {
   }}>
     <View style={styles.wineItem}>
       <Text>
-        {wine.rating} {new Date(wine.Timestamp).toLocaleString('en-GB', { year: 'numeric', month: 'numeric', day: 'numeric' })} {wine.color} {wine.sweetness}
+        {wine.rating} {formatDate(wine.Timestamp)} {wine.color} {wine.sweetness}
       </Text>
     </View>
   </TouchableOpacity>
