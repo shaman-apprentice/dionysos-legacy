@@ -1,5 +1,7 @@
 // import azStorage from 'azure-storage';
 import { IAzureServices } from './IAzureServices';
+import { Wine } from '../types/wine';
+import { wines } from './wines';
 
 export const createAzureServices = async (user: string, pw: string): Promise<IAzureServices> => {
   const response = await getAzureCredentials(user, pw); 
@@ -11,6 +13,15 @@ export const createAzureServices = async (user: string, pw: string): Promise<IAz
     tableService: null,  // azStorage.createTableServiceWithSas(host, sas),
     blobService: null,
   }
+}
+
+export const saveWine = async (azureServices: any, wine: Wine) => {
+  return wine;
+}
+
+export const loadWines = async (createAzureServices: any) => {
+  console.log(wines)
+  return wines;
 }
 
 const getAzureCredentials = (user: string, pw: string) =>
