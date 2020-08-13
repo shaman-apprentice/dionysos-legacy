@@ -9,11 +9,11 @@ beforeEach(() => {
   wine = {
     PartitionKey: '1',
     RowKey: '-1',
-    Timestamp: new Date(new Date('2020-01-02')).getTime(),
+    Timestamp: new Date('2020-01-02').getTime(),
     rating: -1,
     color: 'red',
     sweetness: 'medium dry',
-  }
+  };
 });
 
 it('initial formats date correctly', () => {
