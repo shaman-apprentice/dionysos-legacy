@@ -8,6 +8,7 @@ import { Wine } from '../../../types/wine';
 import { FormTextField } from './FormTextField';
 import { FormWineTimestampField } from './FormTimestampField';
 import { FormSweetnessField } from './FormSweetnessField';
+import { FormNumberField } from './FormNumberField';
 
 export function WineForm(props: { wine : Wine }) {
   return <View style={styles.form}>
@@ -24,6 +25,7 @@ export function WineForm(props: { wine : Wine }) {
         <FormTextField wine={wine} wineField="color" />
         <FormTextField wine={wine} wineField="brand" />
         <FormSweetnessField wine={wine} />
+        <FormNumberField wine={wine} wineField="price" />
         <Button
           containerStyle={{ paddingTop: 8, width: '100%' }}
           onPress={handleSubmit as any}
