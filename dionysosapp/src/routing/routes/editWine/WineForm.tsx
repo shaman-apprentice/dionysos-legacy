@@ -23,9 +23,14 @@ export function WineForm(props: { wine : Wine }) {
       {({ handleSubmit, values: wine }) => <>
         <FormWineTimestampField wine={wine} />
         <FormTextField wine={wine} wineField="color" />
-        <FormTextField wine={wine} wineField="brand" />
         <FormSweetnessField wine={wine} />
+        <FormTextField wine={wine} wineField="area" />
+        <FormTextField wine={wine} wineField="grape" />
+        <FormNumberField wine={wine} wineField="vintage" />
         <FormNumberField wine={wine} wineField="price" />
+        <FormTextField wine={wine} wineField="brand" />
+        <FormTextField wine={wine} wineField="comment" />
+        <FormNumberField wine={wine} wineField="rating" />
         <Button
           containerStyle={{ paddingTop: 8, width: '100%' }}
           onPress={handleSubmit as any}
