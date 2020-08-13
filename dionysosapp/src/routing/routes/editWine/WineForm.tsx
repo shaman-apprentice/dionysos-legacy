@@ -7,6 +7,7 @@ import { Button } from 'react-native-elements';
 import { Wine } from '../../../types/wine';
 import { FormTextField } from './FormTextField';
 import { FormWineTimestampField } from './FormTimestampField';
+import { FormSweetnessField } from './FormSweetnessField';
 
 export function WineForm(props: { wine : Wine }) {
   return <View style={styles.form}>
@@ -22,6 +23,7 @@ export function WineForm(props: { wine : Wine }) {
         <FormWineTimestampField wine={wine} />
         <FormTextField wine={wine} wineField="color" />
         <FormTextField wine={wine} wineField="brand" />
+        <FormSweetnessField wine={wine} />
         <Button onPress={handleSubmit as any} title="Submit" />
       </>}
     </Formik>

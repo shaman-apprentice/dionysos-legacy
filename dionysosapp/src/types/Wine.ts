@@ -1,4 +1,9 @@
-export type Sweetness = 'dry' | 'medium dry' | 'medium sweet' | 'sweet';
+export enum Sweetness {
+  'dry' = 'dry',
+  'medium dry' = 'medium dry',
+  'medium sweet' = 'medium sweet',
+  'sweet' = 'sweet',
+};
 
 export type Wine = {
   PartitionKey: string,
