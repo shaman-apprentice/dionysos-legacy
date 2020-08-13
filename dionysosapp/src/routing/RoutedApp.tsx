@@ -22,7 +22,7 @@ export default withLogin(function RoutedApp() {
             />
             <Route
               path="/edit-wine/:RowKey"
-              component={React.lazy(() => import('./routes/edit-wine'))}
+              component={React.lazy(() => import('./routes/editWine/EditWine'))}
             />
             <Route component={Home} />
           </Switch>
