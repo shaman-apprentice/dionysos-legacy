@@ -5,6 +5,7 @@
   - start puppeteer
   - test in puppeteer
 
-# nice to have feature
+# nice to have
 - wine list overview with icons for values and nice layout instead of plain text
 - attach a image to a wine
+- "Picker has been extracted from react-native core and will be removed in a future release. It can now be installed and imported from '@react-native-community/picker' instead of 'react-native'. See https://github.com/react-native-community/react-native-picker"
