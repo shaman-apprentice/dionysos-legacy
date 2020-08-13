@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { View, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
@@ -9,13 +9,9 @@ import { FormTextField } from './FormTextField';
 import { FormWineTimestampField } from './FormWineTimestampField';
 
 export function WineForm(props: { wine : Wine }) {
-  const tmpWine = useMemo(() =>
-    JSON.parse(JSON.stringify(props.wine))
-  , [props.wine]);
-
   return <View style={styles.form}>
     <Formik
-      initialValues={tmpWine}
+      initialValues={props.wine}
       onSubmit={(wine, actions) => {
         console.log('submitting');
         console.log(actions);
@@ -24,6 +20,7 @@ export function WineForm(props: { wine : Wine }) {
     >
       {({ handleSubmit, values: wine }) => <>
         <FormWineTimestampField wine={wine} />
+        <FormTextField wine={wine} wineField="color" />
         <FormTextField wine={wine} wineField="brand" />
         <Button onPress={handleSubmit as any} title="Submit" />
       </>}

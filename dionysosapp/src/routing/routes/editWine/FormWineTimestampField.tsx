@@ -24,7 +24,7 @@ export function FormWineTimestampField(props:  FormWineTimestampFieldProps) {
       ? String(props.wine.Timestamp)
       : formatDate(props.wine.Timestamp)
     }
-    onChangeText={handleChangeDate as any}
+    onChangeText={handleChangeDate}
     onBlur={handleBlur('Timestamp')}
     errorMessage={(errors as any).Timestamp}
   />
