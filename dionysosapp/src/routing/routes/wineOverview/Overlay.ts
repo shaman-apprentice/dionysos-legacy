@@ -1,1 +1,1 @@
-export { Overlay } from 'react-native-elements';
+export { Overlay, OverlayProps } from 'react-native-elements';

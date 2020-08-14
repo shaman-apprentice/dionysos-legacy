@@ -18,7 +18,10 @@ export function FilterView() {
     containerStyle={{flexGrow: 1, borderRadius: 8}}
   />
 
-  <SortByOverlay isVisible={isSortByVisible} />
+  <SortByOverlay
+    isVisible={isSortByVisible}
+    onBackdropPress={() => { setIsSortByVisible(false); }}
+  />
 </View>
 }
 

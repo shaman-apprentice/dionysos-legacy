@@ -2,16 +2,12 @@ import React from 'react';
 
 import { Text } from 'react-native-elements';
 
-import { Overlay } from './Overlay';
+import { Overlay, OverlayProps } from './Overlay';
 
 export function SortByOverlay(props: SortByOverlayProps) {
-  return <Overlay
-    isVisible={props.isVisible}
-  >
+  return <Overlay {...props}>
     <Text>hi</Text>
   </Overlay>
 }
 
-interface SortByOverlayProps {
-  isVisible: boolean,
-}
+type SortByOverlayProps = Omit<OverlayProps, 'children'>;
