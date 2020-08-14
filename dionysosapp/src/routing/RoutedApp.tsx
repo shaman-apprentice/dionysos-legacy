@@ -18,7 +18,7 @@ export default withLogin(function RoutedApp() {
           <Switch>
             <Route
               path="/wine-overview"
-              component={React.lazy(() => import('./routes/wine-overview'))}
+              component={React.lazy(() => import('./routes/wineOverview/WineOverview'))}
             />
             <Route
               path="/edit-wine/:RowKey"
