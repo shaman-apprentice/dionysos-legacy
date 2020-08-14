@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AzureContextProvider, AzureContext } from '../../azure-api/AzureContext';
+import { AzureContextProvider, AzureContext } from '../../azureApi/AzureContext';
 import { Login } from './Login';
 
 export const withLogin = (Component: React.ComponentType) =>

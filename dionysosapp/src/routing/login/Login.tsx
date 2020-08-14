@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 
-import { AzureContext } from '../../azure-api/AzureContext'
+import { AzureContext } from '../../azureApi/AzureContext';
 
 export function Login() {
   const [ user, setUser ] = useState('');

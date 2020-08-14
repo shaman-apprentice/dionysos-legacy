@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import { useParams } from '../../router';
-import { AzureContext } from '../../../azure-api/AzureContext';
+import { AzureContext } from '../../../azureApi/AzureContext';
 import { Wine } from '../../../types/wine';
 import { WineForm } from './WineForm';
 

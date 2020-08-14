@@ -5,8 +5,8 @@ import renderer, { act } from 'react-test-renderer';
 import { withLogin } from './withLogin';
 import { Login } from './Login';
 
-const { createAzureServices } = require('../../azure-api/azureApi');
-jest.mock('../../azure-api/azureApi');
+const { createAzureServices } = require('../../azureApi/azureApi');
+jest.mock('../../azureApi/azureApi');
 
 const TestComponent = () => null;
 let TestComponentWithLogin;

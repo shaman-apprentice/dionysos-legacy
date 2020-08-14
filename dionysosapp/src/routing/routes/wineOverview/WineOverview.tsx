@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 
 import { useHistory } from '../../router';
-import { AzureContext } from '../../../azure-api/AzureContext'
+import { AzureContext } from '../../../azureApi/AzureContext'
 import WineRow from './WineRow';
 import { Wine } from '../../../types/wine';
 
