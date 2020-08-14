@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { View, StyleSheet, Platform } from 'react-native';
+import { ScrollView, View, StyleSheet, Platform } from 'react-native';
 import { Formik } from 'formik';
 import { Button } from 'react-native-elements';
 
@@ -20,7 +20,7 @@ export function WineForm(props: { wine : Wine }) {
         console.log(JSON.stringify(wine, null, 2));
       }}
     >
-      {({ handleSubmit, values: wine }) => <>
+      {({ handleSubmit, values: wine }) => <ScrollView>
         <FormWineTimestampField wine={wine} />
         <FormTextField wine={wine} wineField="color" />
         <FormSweetnessField wine={wine} />
@@ -36,7 +36,7 @@ export function WineForm(props: { wine : Wine }) {
           onPress={handleSubmit as any}
           title="Submit"
         />
-      </>}
+      </ScrollView>}
     </Formik>
   </View>
 }
