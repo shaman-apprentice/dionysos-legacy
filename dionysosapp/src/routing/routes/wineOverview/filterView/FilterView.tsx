@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 
 import { View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-elements';
-import { SortByOverlay } from './SortByOverlay';
+
+import { SortByOverlay } from './sortByOverlay/SortByOverlay';
 
 export function FilterView() {
   const [ isSortByVisible, setIsSortByVisible ] = useState(false);
