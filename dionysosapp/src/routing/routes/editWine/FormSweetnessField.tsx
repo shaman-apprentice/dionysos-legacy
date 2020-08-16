@@ -10,6 +10,7 @@ export function FormSweetnessField(props:  FormSweetnessFieldProps) {
     setFieldValue('sweetness', sweetness, false);
   }, []);
 
+  // todo: Add label
   return <Picker
     style={{
       viewContainer: { paddingLeft: 8 },
