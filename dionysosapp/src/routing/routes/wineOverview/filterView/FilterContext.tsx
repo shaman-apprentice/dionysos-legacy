@@ -5,6 +5,7 @@ import { SortableWineProps, UpdateSortByState, SortByState, ISortByContext } fro
 export const defaultContext: ISortByContext = {
   sortByState: {
     rating: true,
+    Timestamp: true,
   },
   updateSortByState: (field: SortableWineProps, isDescending: boolean) => {},
 }
@@ -14,6 +15,7 @@ export const FilterContext = React.createContext(defaultContext);
 export function FilterContextProvider(props: React.PropsWithChildren<{}>) {
   const [ sortByState, setSortByState ] = useState<SortByState>({
     rating: true,
+    Timestamp: true,  
   });
 
   const updateSortByState = useMemo<UpdateSortByState>(() => (field, isDescending) => {
@@ -21,7 +23,7 @@ export function FilterContextProvider(props: React.PropsWithChildren<{}>) {
       ...sortByState,
       [field]: isDescending,
     })
-  }, [setSortByState]);
+  }, [sortByState, setSortByState]);
 
   return <FilterContext.Provider value={{
     sortByState,

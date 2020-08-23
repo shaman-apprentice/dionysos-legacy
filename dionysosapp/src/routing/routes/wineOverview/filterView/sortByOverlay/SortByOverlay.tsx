@@ -2,11 +2,16 @@ import React from 'react';
 
 import { Overlay, OverlayProps } from '../Overlay';
 import { SortByField } from './SortByField';
+import { View } from 'react-native';
+
 
 export function SortByOverlay(props: SortByOverlayProps) {
-  // todo: layout and an exit button
+  // todo: exit button
   return <Overlay {...props}>
-    <SortByField field="rating" />
+    <View style={{alignItems: 'flex-start'}}>
+      <SortByField field="rating" />
+      <SortByField field="Timestamp" />
+    </View>
   </Overlay>
 }
 
