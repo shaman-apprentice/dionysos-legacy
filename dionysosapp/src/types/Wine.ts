@@ -14,7 +14,7 @@ export type Wine = {
   rating: number,
   area?: string,
   grape?: string,
-  price?: string,
+  price?: number,
   brand?: string,
   vintage?: number,
   comment?: string,

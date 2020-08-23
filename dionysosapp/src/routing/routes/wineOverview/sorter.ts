@@ -7,7 +7,6 @@ const keys: SortableWineProps[] = [
   'price',
 ];
 
-// todo: unit tests
 export const sort = (wines: {[RowKey: string]: Wine}, sortByState: SortByState) => {
   return Object.values(wines).sort((w1, w2) => {
     for (let key of keys) {
