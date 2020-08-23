@@ -4,6 +4,7 @@ import { SortByState, SortableWineProps } from './filterView/filterViewTypes';
 const keys: SortableWineProps[] = [
   'Timestamp',
   'rating',
+  'price',
 ];
 
 // todo: unit tests

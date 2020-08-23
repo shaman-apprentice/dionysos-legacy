@@ -9,8 +9,9 @@ export function SortByOverlay(props: SortByOverlayProps) {
   // todo: exit button
   return <Overlay {...props}>
     <View style={{alignItems: 'flex-start'}}>
-      <SortByField field="rating" />
       <SortByField field="Timestamp" />
+      <SortByField field="rating" />
+      <SortByField field="price" />
     </View>
   </Overlay>
 }

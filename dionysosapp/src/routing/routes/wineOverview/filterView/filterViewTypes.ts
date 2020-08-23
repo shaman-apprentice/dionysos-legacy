@@ -1,6 +1,10 @@
 import { Wine } from '../../../../types/wine';
 
-export type SortableWineProps = keyof Pick<Wine, 'rating' | 'Timestamp'>;
+export type SortableWineProps = keyof Pick<Wine,
+  'rating'
+  | 'Timestamp'
+  | 'price'
+>;
 
 type IsDescending = boolean;
 
