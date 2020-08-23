@@ -14,12 +14,12 @@ export function SortByField(props: SortByFieldProps) {
   return <View style={styles.container}>
     <Text style={styles.text}>{capitalise(props.field as any)}</Text>
     <CheckBox
-      title="descending"
+      title="&darr;"
       checked={sortByState[props.field]}
       onPress={toggleFieldState}
     />
     <CheckBox
-      title="ascending"
+      title="&uarr;"
       checked={!sortByState[props.field]}
       onPress={toggleFieldState}
     />
@@ -31,13 +31,14 @@ const  capitalise = (word: string) =>
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    width: '100%',
     flexDirection: 'row',
   },
   text: {
     alignSelf: 'center',
     fontWeight: 'bold',
-  }
+    flexGrow: 1,
+  },
 });
 
 interface SortByFieldProps {
