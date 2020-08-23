@@ -3,15 +3,21 @@ import React from 'react';
 import { Overlay, OverlayProps } from '../Overlay';
 import { SortByField } from './SortByField';
 import { View } from 'react-native';
+import { Button } from 'react-native-elements';
 
 
 export function SortByOverlay(props: SortByOverlayProps) {
-  // todo: exit button
   return <Overlay {...props}>
     <View style={{alignItems: 'flex-start'}}>
       <SortByField field="Timestamp" />
       <SortByField field="rating" />
       <SortByField field="price" />
+
+      <Button
+        containerStyle={{ width: '100%' }}
+        title="Close"
+        onPress={props.onBackdropPress}
+      />
     </View>
   </Overlay>
 }
