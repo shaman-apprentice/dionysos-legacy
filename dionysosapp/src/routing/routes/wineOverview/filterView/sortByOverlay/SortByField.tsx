@@ -12,7 +12,7 @@ export function SortByField(props: SortByFieldProps) {
   }
 
   return <View style={styles.container}>
-    <Text style={styles.text}>{capitalise(props.field as any)}</Text>
+    <Text style={styles.text}>{capitalise(props.field)}</Text>
     <CheckBox
       title="&darr;"
       checked={sortByState[props.field]}
