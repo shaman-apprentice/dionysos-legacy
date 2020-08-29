@@ -5,22 +5,23 @@ import { useHistory } from '../../router';
 import { AzureContext } from '../../../azureApi/AzureContext'
 import { Wine } from '../../../types/wine';
 import WineRow from './WineRow';
-import { FilterView } from './sieveView/FilterView';
+import { SieveView } from './sieveView/SieveView';
 import { SieveContext } from './sieveView/SieveContext';
-import { sort } from './sorter';
+import { sort, filter } from './sieve';
 
 export function WineList() {
   const { wines } = useContext(AzureContext);
-  const { sortBy } = useContext(SieveContext);
+  const { sortBy, filterBy } = useContext(SieveContext);
   const history = useHistory();
   
   const wines2Display = useMemo(() => {
-    return sort(wines, sortBy);
-  }, [wines, sortBy])
+    const filteredWines = filter(wines, filterBy);
+    return sort(filteredWines, sortBy);
+  }, [wines, sortBy, filterBy])
 
   return <View style={styles.container}>
     <FlatList
-      ListHeaderComponent={FilterView}
+      ListHeaderComponent={SieveView}
       data={wines2Display}
       keyExtractor={(wine: Wine) => wine.RowKey}
       renderItem={item => <WineRow
