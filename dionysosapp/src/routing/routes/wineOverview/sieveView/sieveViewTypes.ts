@@ -8,14 +8,14 @@ export type SortableWineProps = keyof Pick<Wine,
 
 type IsDescending = boolean;
 
-export type SortByState = {
+export type SortBy = {
   [field in SortableWineProps]: IsDescending;
 }
 
-export type UpdateSortByState =
+export type UpdateSortBy =
   (field: SortableWineProps, isDescending: IsDescending) => void
 
-export interface ISortByContext {
-  sortByState: SortByState,
-  updateSortByState: UpdateSortByState,
+export interface ISieveContext {
+  sortBy: SortBy,
+  updateSortBy: UpdateSortBy,
 }

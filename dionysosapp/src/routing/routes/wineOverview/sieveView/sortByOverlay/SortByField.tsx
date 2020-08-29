@@ -2,25 +2,26 @@ import React, { useContext } from 'react';
 
 import { View, StyleSheet } from 'react-native';
 import { Text, CheckBox } from 'react-native-elements';
-import { FilterContext } from '../FilterContext';
-import { SortableWineProps } from '../filterViewTypes';
+
+import { SieveContext } from '../SieveContext';
+import { SortableWineProps } from '../sieveViewTypes';
 
 export function SortByField(props: SortByFieldProps) {
-  const { sortByState, updateSortByState } = useContext(FilterContext);
+  const { sortBy, updateSortBy } = useContext(SieveContext);
   const toggleFieldState = () => {
-    updateSortByState(props.field, !sortByState[props.field]);
+    updateSortBy(props.field, !sortBy[props.field]);
   }
 
   return <View style={styles.container}>
     <Text style={styles.text}>{capitalise(props.field)}</Text>
     <CheckBox
       title="&darr;"
-      checked={sortByState[props.field]}
+      checked={sortBy[props.field]}
       onPress={toggleFieldState}
     />
     <CheckBox
       title="&uarr;"
-      checked={!sortByState[props.field]}
+      checked={!sortBy[props.field]}
       onPress={toggleFieldState}
     />
   </View>

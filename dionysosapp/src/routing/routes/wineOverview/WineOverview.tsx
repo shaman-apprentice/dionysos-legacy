@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { FilterContextProvider } from './filterView/FilterContext';
+import { SieveContextProvider } from './sieveView/SieveContext';
 import { WineList } from './WineList';
 
 export default function WineOverview() {
-  return <FilterContextProvider>
+  return <SieveContextProvider>
     <WineList />
-  </FilterContextProvider>
+  </SieveContextProvider>
 }

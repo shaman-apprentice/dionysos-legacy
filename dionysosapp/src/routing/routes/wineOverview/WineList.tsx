@@ -5,18 +5,18 @@ import { useHistory } from '../../router';
 import { AzureContext } from '../../../azureApi/AzureContext'
 import { Wine } from '../../../types/wine';
 import WineRow from './WineRow';
-import { FilterView } from './filterView/FilterView';
-import { FilterContext } from './filterView/FilterContext';
+import { FilterView } from './sieveView/FilterView';
+import { SieveContext } from './sieveView/SieveContext';
 import { sort } from './sorter';
 
 export function WineList() {
   const { wines } = useContext(AzureContext);
-  const { sortByState } = useContext(FilterContext);
+  const { sortBy } = useContext(SieveContext);
   const history = useHistory();
   
   const wines2Display = useMemo(() => {
-    return sort(wines, sortByState);
-  }, [wines, sortByState])
+    return sort(wines, sortBy);
+  }, [wines, sortBy])
 
   return <View style={styles.container}>
     <FlatList

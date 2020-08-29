@@ -1,5 +1,5 @@
 import { Wine } from '../../../types/wine';
-import { SortByState, SortableWineProps } from './filterView/filterViewTypes';
+import { SortBy, SortableWineProps } from './sieveView/sieveViewTypes';
 
 const keys: SortableWineProps[] = [
   'Timestamp',
@@ -7,7 +7,7 @@ const keys: SortableWineProps[] = [
   'price',
 ];
 
-export const sort = (wines: {[RowKey: string]: Wine}, sortByState: SortByState) => {
+export const sort = (wines: {[RowKey: string]: Wine}, sortByState: SortBy) => {
   return Object.values(wines).sort((w1, w2) => {
     for (let key of keys) {
       const isDescending = sortByState[key];
