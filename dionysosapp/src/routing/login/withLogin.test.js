@@ -5,15 +5,15 @@ import renderer, { act } from 'react-test-renderer';
 import { withLogin } from './withLogin';
 import { Login } from './Login';
 
-const { createAzureServices } = require('../../azureApi/azureApi');
-jest.mock('../../azureApi/azureApi');
+const { AzureManager } = require('../../azureApi/AzureManager');
+jest.mock('../../azureApi/AzureManager');
 
 const TestComponent = () => null;
 let TestComponentWithLogin;
 
 beforeEach(() => {
   TestComponentWithLogin = withLogin(TestComponent);
-  createAzureServices.mockReset();
+  AzureManager.login.mockReset();
 });
 
 it('shows initially only Login', () => {
@@ -63,12 +63,12 @@ it('calls loginApi not again before first call is finished', async () => {
     app.root.findByProps({ title: 'Login' }).props.onPress();
   });
 
-  expect(createAzureServices).toHaveBeenCalledTimes(1);
+  expect(AzureManager.login).toHaveBeenCalledTimes(1);
 });
 
 const simulateLogin = (app, user, pw) =>
   act(async () => { // this act for the update of `isLoggingIn`
-    createAzureServices.mockImplementation(async (username, pw) => {
+    AzureManager.login.mockImplementation(async (username, pw) => {
       if (username === 'James' && pw === 'top-secret')
         return { tableService: null, blobService: null }
     
