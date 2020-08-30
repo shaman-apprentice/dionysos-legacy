@@ -26,7 +26,7 @@ export class AzureManager {
   public async getWines() {
     const response = await fetch(`${this.host}wines?${this.sas}`, {
       headers: {
-        'Accept': 'application/json;odata=nometadata'
+        'Accept': 'application/json;odata=nometadata',
       },
     });
     
@@ -41,5 +41,25 @@ export class AzureManager {
       acc[wine.RowKey] = wine;
       return acc;
     }, {} as {[RowKey: string]: Wine});
+  }
+
+  public async insertWine(wine: Wine): Promise<Wine> {
+    wine.PartitionKey = '1';
+    wine.RowKey = String(new Date().getTime()); // npm's uuid is not supported by mobile devices, but this should be good enough
+    const response = await fetch(`${this.host}wines?${this.sas}`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json;odata=nometadata',
+        'Access-Control-Allow-Origin': this.host,
+        'Preference-Applied': 'return-content',
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify(wine),
+    });
+
+    if (response.status !== 201)
+      throw new Error(await response.text());
+
+    return await response.json();
   }
 }

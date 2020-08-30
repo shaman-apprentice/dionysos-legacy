@@ -1,10 +1,12 @@
 import React, { useState, useCallback } from 'react';
 
+import { useHistory } from '../routing/router';
 import { IAzureContext } from './IAzureContext';
 import { Wine } from '../types/wine';
 import { AzureManager } from './AzureManager';
 
 const isDev = Boolean(__DEV__) && process.env.NODE_ENV !== 'test';
+// const isDev = false; // for connecting to azure
 const defaultContext: IAzureContext = {
   isLoggedIn: false,
   login: () => Promise.resolve(),
@@ -13,11 +15,13 @@ const defaultContext: IAzureContext = {
     ? require('./devWines').wines
     : {} as {[RowKey: string]: Wine},
   getWines: () => undefined,
+  saveWine: (wine) => Promise.resolve(wine),
 }
 
 export const AzureContext = React.createContext<IAzureContext>(defaultContext);
  
 export function AzureContextProvider(props: React.PropsWithChildren<{}>) {
+  const history = useHistory();
   const [ manager, setManager ] = useState(defaultContext.manager);
   const [ wines, setWines ] = useState(defaultContext.wines);
 
@@ -29,11 +33,26 @@ export function AzureContextProvider(props: React.PropsWithChildren<{}>) {
     const azManager = await AzureManager.login(username, pw, logout);
     setManager(azManager);
     setWines(await azManager.getWines());
-  }, [setManager]);
+  }, [setManager, setWines]);
 
   const getWines = useCallback(async () => {
     setWines(await manager?.getWines() ?? {});
-  }, [setWines]);
+  }, [manager, setWines]);
+
+  const saveWine = useCallback(async (wine: Wine) => {
+    if (wine.RowKey === '-1') {
+      wine = await manager!.insertWine(wine);
+      setWines({
+        ...wines,
+        [wine.RowKey]: wine,
+      });
+    } else {
+      // todo update wine
+    }
+    
+    history.push('/wine-overview');
+    return wine;
+  }, [manager, setWines, wines, history]);
 
   return <AzureContext.Provider value={{
     isLoggedIn: isDev || manager !== null,
@@ -41,6 +60,7 @@ export function AzureContextProvider(props: React.PropsWithChildren<{}>) {
     manager,
     wines,
     getWines,
+    saveWine,
   }}>
     { props.children }
   </AzureContext.Provider>

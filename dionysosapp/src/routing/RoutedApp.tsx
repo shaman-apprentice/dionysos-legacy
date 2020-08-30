@@ -11,23 +11,21 @@ import Home from './routes/home';
 export default withLogin(function RoutedApp() {
   return <View style={styles.appView}>
     <React.Suspense fallback={<Text>Loading...</Text>}>
-      <Router>
-        <Header />
+      <Header />
 
-        <View style={styles.container}>
-          <Switch>
-            <Route
-              path="/wine-overview"
-              component={React.lazy(() => import('./routes/wineOverview/WineOverview'))}
-            />
-            <Route
-              path="/edit-wine/:RowKey"
-              component={React.lazy(() => import('./routes/editWine/EditWine'))}
-            />
-            <Route component={Home} />
-          </Switch>
-        </View>
-      </Router>
+      <View style={styles.container}>
+        <Switch>
+          <Route
+            path="/wine-overview"
+            component={React.lazy(() => import('./routes/wineOverview/WineOverview'))}
+          />
+          <Route
+            path="/edit-wine/:RowKey"
+            component={React.lazy(() => import('./routes/editWine/EditWine'))}
+          />
+          <Route component={Home} />
+        </Switch>
+      </View>
     </React.Suspense>
   </View>
 });

@@ -1,23 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { ScrollView, View, StyleSheet, Platform } from 'react-native';
 import { Formik } from 'formik';
 import { Button } from 'react-native-elements';
 
 import { Wine } from '../../../types/wine';
+import { AzureContext } from '../../../azureApi/AzureContext';
 import { FormTextField } from './FormTextField';
 import { FormWineTimestampField } from './FormTimestampField';
 import { FormSweetnessField } from './FormSweetnessField';
 import { FormNumberField } from './FormNumberField';
 
 export function WineForm(props: { wine : Wine }) {
+  const { saveWine } = useContext(AzureContext);
+
   return <View style={styles.form}>
     <Formik
       initialValues={props.wine}
-      onSubmit={(wine, actions) => {
-        console.log('submitting');
-        console.log(actions);
-        console.log(JSON.stringify(wine, null, 2));
+      onSubmit={async (wine, actions) => {
+        await saveWine(wine);
       }}
     >
       {({ handleSubmit, values: wine }) => <ScrollView>

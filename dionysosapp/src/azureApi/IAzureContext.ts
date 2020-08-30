@@ -7,4 +7,5 @@ export interface IAzureContext {
   manager: AzureManager | null;
   wines: {[RowKey: string]: Wine};
   getWines: () => void;
+  saveWine: (wine: Wine) => Promise<Wine>;
 }
