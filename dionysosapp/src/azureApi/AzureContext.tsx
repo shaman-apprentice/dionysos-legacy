@@ -4,9 +4,9 @@ import { IAzureContext } from './IAzureContext';
 import { Wine } from '../types/wine';
 import { AzureManager } from './AzureManager';
 
-const isDev = Boolean(__DEV__);
+const isDev = Boolean(__DEV__) && process.env.NODE_ENV !== 'test';
 const defaultContext: IAzureContext = {
-  isLoggedIn: isDev,
+  isLoggedIn: false,
   login: () => Promise.resolve(),
   manager: null,
   wines: isDev
