@@ -22,7 +22,11 @@ module.exports.hasUser = (name, pw) => {
 module.exports.generateWinesTableCredentials = () => {
   const accessPolicy = {
     AccessPolicy: {
-      Permissions: azStorage.TableUtilities.SharedAccessPermissions.QUERY,
+      Permissions: [
+        azStorage.TableUtilities.SharedAccessPermissions.QUERY,
+        azStorage.TableUtilities.SharedAccessPermissions.ADD,
+        azStorage.TableUtilities.SharedAccessPermissions.UPDATE,
+      ],
       Start: new Date(),
       Expiry: new Date((new Date()).getTime() + 86400000), // expires in 24h
     },
