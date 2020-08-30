@@ -10,7 +10,6 @@
   "dependencies": {
     "@types/react-router-dom": "^5.1.5",
     "@types/react-router-native": "^5.1.0",
-    "azure-storage": "^2.10.3",
     "expo": "^38.0.0",
     "expo-updates": "~0.2.8",
     "formik": "^2.1.5",

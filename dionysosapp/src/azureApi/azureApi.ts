@@ -1,4 +1,3 @@
-// import azStorage from 'azure-storage';
 import { IAzureServices } from './IAzureServices';
 import { Wine } from '../types/wine';
 import { wines } from './wines';
@@ -10,7 +9,7 @@ export const createAzureServices = async (user: string, pw: string): Promise<IAz
 
   const { host, sas } = await response.json();
   return {
-    tableService: null,  // azStorage.createTableServiceWithSas(host, sas),
+    tableService: null,  
     blobService: null,
   }
 }
