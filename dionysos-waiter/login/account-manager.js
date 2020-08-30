@@ -20,6 +20,7 @@ module.exports.hasUser = (name, pw) => {
 }
 
 module.exports.generateWinesTableCredentials = () => {
+  const now = new Date().getTime();
   const accessPolicy = {
     AccessPolicy: {
       Permissions: [
@@ -27,8 +28,8 @@ module.exports.generateWinesTableCredentials = () => {
         azStorage.TableUtilities.SharedAccessPermissions.ADD,
         azStorage.TableUtilities.SharedAccessPermissions.UPDATE,
       ],
-      Start: new Date(),
-      Expiry: new Date((new Date()).getTime() + 86400000), // expires in 24h
+      Start: new Date(now - 900), // -15min in case of clocks out of sync
+      Expiry: new Date(now + 86400000), // expires in 24h
     },
   };
 
