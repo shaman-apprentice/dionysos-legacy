@@ -15,7 +15,7 @@ const defaultContext: IAzureContext = {
     ? require('./devWines').wines
     : {} as WineDict,
   getWines: () => undefined,
-  saveWine: (wine) => Promise.resolve(wine),
+  upsertWine: (wine) => Promise.resolve(wine),
 }
 
 export const AzureContext = React.createContext<IAzureContext>(defaultContext);
@@ -39,7 +39,7 @@ export function AzureContextProvider(props: React.PropsWithChildren<{}>) {
     setWines(await manager?.getWines() ?? {});
   }, [manager, setWines]);
 
-  const saveWine = useCallback(async (wine: Wine) => {
+  const upsertWine = useCallback(async (wine: Wine) => {
     wine = await manager!.upsert(wine);
     setWines({
       ...wines,
@@ -56,7 +56,7 @@ export function AzureContextProvider(props: React.PropsWithChildren<{}>) {
     manager,
     wines,
     getWines,
-    saveWine,
+    upsertWine,
   }}>
     { props.children }
   </AzureContext.Provider>

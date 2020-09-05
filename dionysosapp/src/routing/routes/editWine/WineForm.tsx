@@ -12,12 +12,12 @@ import { FormSweetnessField } from './FormSweetnessField';
 import { FormNumberField } from './FormNumberField';
 
 export function WineForm(props: { wine : Wine }) {
-  const { saveWine } = useContext(AzureContext);
+  const { upsertWine } = useContext(AzureContext);
 
   return <View style={styles.form}>
     <Formik
       initialValues={props.wine}
-      onSubmit={(wine, actions) => saveWine(wine) }
+      onSubmit={(wine, actions) => upsertWine(wine) }
     >
       {({ handleSubmit, values: wine, isSubmitting, isValid }) => <ScrollView>
         <FormWineDateField wine={wine} />
