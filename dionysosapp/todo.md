@@ -9,3 +9,4 @@
 - wine list overview with icons for values and nice layout instead of plain text
 - attach a image to a wine
 - "Picker has been extracted from react-native core and will be removed in a future release. It can now be installed and imported from '@react-native-community/picker' instead of 'react-native'. See https://github.com/react-native-community/react-native-picker"
+- store azure sas in local storage or so, so that you don't have to retrieve it again, in case of page reload
