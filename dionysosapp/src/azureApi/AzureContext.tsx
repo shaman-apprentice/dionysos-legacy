@@ -41,10 +41,10 @@ export function AzureContextProvider(props: React.PropsWithChildren<{}>) {
 
   const saveWine = useCallback(async (wine: Wine) => {
     wine = await manager!.upsert(wine);
-      setWines({
-        ...wines,
-        [wine.RowKey]: wine,
-      });
+    setWines({
+      ...wines,
+      [wine.RowKey]: wine,
+    });
     
     history.push('/wine-overview');
     return wine;
