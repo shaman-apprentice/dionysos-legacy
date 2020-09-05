@@ -21,7 +21,7 @@ export function WineForm(props: { wine : Wine }) {
         await saveWine(wine);
       }}
     >
-      {({ handleSubmit, values: wine }) => <ScrollView>
+      {({ handleSubmit, values: wine, isSubmitting }) => <ScrollView>
         <FormWineTimestampField wine={wine} />
         <FormTextField wine={wine} wineField="color" />
         <FormSweetnessField wine={wine} />
@@ -34,8 +34,9 @@ export function WineForm(props: { wine : Wine }) {
         <FormNumberField wine={wine} wineField="rating" />
         <Button
           containerStyle={{ paddingTop: 8, width: '100%' }}
-          onPress={handleSubmit as any}
           title="Submit"
+          onPress={handleSubmit as any}
+          disabled={isSubmitting}
         />
       </ScrollView>}
     </Formik>
