@@ -22,7 +22,7 @@ export function WineForm(props: { wine : Wine }) {
       {({ handleSubmit, values: wine, isSubmitting, isValid }) => <ScrollView>
         <FormWineDateField wine={wine} />
         <FormTextField wine={wine} wineField="color" />
-        <FormSweetnessField wine={wine} />
+        <FormSweetnessField />
         <FormTextField wine={wine} wineField="area" />
         <FormTextField wine={wine} wineField="grape" />
         <FormNumberField wine={wine} wineField="vintage" />

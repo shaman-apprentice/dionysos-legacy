@@ -1,32 +1,46 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { useFormikContext } from 'formik';
 import Picker from 'react-native-picker-select'
 import { Wine, Sweetness } from '../../../types/Wine';
+import { Input } from 'react-native-elements';
+import { Text, Platform } from 'react-native';
 
-export function FormSweetnessField(props:  FormSweetnessFieldProps) {
-  const { setFieldValue } = useFormikContext();
+export function FormSweetnessField() {
+  return <Input
+    label="Sweetness"
+    InputComponent={SweetnessDropdownWrapper}
+  />
+}
+
+class SweetnessDropdownWrapper extends React.Component { // as Input's InputComponent needs an old react ref this must be a class
+  render() {
+    return <SweetnessDropdown />
+  }
+}
+
+function SweetnessDropdown() {
+  const { setFieldValue, values: wine } = useFormikContext<Wine>();
   const handleValueChange = useCallback(sweetness => {
     setFieldValue('sweetness', sweetness, false);
   }, []);
+  
+  const sweetnessItems = useMemo(() => Object.keys(Sweetness).map(sweetness => ({
+    label: sweetness,
+    value: sweetness,
+  })), []);
 
-  // todo: Add label
   return <Picker
     style={{
-      viewContainer: { paddingLeft: 8 },
+      viewContainer: {
+        flex: 1,
+        marginTop: Platform.OS !=='android' ? 16 : 0
+      }
     }}
-    value={props.wine.sweetness}
+    value={wine.sweetness}
     items={sweetnessItems}
     onValueChange={value => {
       handleValueChange(value);
-    }} />
+    }}
+  />
 }
-
-interface FormSweetnessFieldProps {
-  wine: Wine,
-}
-
-const sweetnessItems = Object.keys(Sweetness).map(sweetness => ({
-  label: sweetness,
-  value: sweetness,
-}));
