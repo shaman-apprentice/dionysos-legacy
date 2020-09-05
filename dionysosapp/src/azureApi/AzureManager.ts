@@ -1,4 +1,4 @@
-import { Wine } from '../types/wine';
+import { Wine, WineDict } from '../types/wine';
 
 export class AzureManager {
   constructor(
@@ -40,7 +40,7 @@ export class AzureManager {
     return wines.reduce((acc, wine) => {
       acc[wine.RowKey] = wine;
       return acc;
-    }, {} as {[RowKey: string]: Wine});
+    }, {} as WineDict);
   }
 
   public async upsert(wine: Wine): Promise<Wine> {

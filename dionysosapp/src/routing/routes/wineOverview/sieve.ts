@@ -1,10 +1,10 @@
-import { Wine } from '../../../types/wine';
+import { Wine, WineDict } from '../../../types/wine';
 import { SortBy, SortableWineProps, FilterableWineProps, FilterBy } from './sieveView/sieveViewTypes';
 
 const sortKeys: SortableWineProps[] = [ 'date','rating', 'price' ];
 const filterKeys: FilterableWineProps[] = [ 'color', 'sweetness', 'area', 'grape' ];
 
-export const sort = (wines: {[RowKey: string]: Wine}, sortBy: SortBy) =>
+export const sort = (wines: WineDict, sortBy: SortBy) =>
   Object.values(wines).sort((w1, w2) => {
     for (let key of sortKeys) {
       const isDescending = sortBy[key];
@@ -30,7 +30,7 @@ export const sort = (wines: {[RowKey: string]: Wine}, sortBy: SortBy) =>
     return 0;
   })
 
-export const filter = (wines: {[RowKey: string]: Wine}, filterBy: FilterBy) => 
+export const filter = (wines: WineDict, filterBy: FilterBy) => 
   Object.keys(wines).reduce((acc, key) => {
     const wine = wines[key];
     for (let wineField of filterKeys) {
@@ -41,4 +41,4 @@ export const filter = (wines: {[RowKey: string]: Wine}, filterBy: FilterBy) =>
 
     acc[key] = wine;
     return acc;
-  }, {} as {[RowKey: string]: Wine});
+  }, {} as WineDict);

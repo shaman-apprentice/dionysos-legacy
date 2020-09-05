@@ -1,7 +1,7 @@
-import { Wine, Sweetness } from '../../../types/wine';
+import { Wine, Sweetness, WineDict } from '../../../types/wine';
 import { sort, filter } from './sieve';
 
-const wines: {[RowKey: string]: Wine} = {
+const wines: WineDict = {
   '1': {
     PartitionKey: '1',
     RowKey: '1',

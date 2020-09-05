@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 
 import { useHistory } from '../routing/router';
 import { IAzureContext } from './IAzureContext';
-import { Wine } from '../types/wine';
+import { Wine, WineDict } from '../types/wine';
 import { AzureManager } from './AzureManager';
 
 const isDev = Boolean(__DEV__) && process.env.NODE_ENV !== 'test';
@@ -13,7 +13,7 @@ const defaultContext: IAzureContext = {
   manager: null,
   wines: isDev
     ? require('./devWines').wines
-    : {} as {[RowKey: string]: Wine},
+    : {} as WineDict,
   getWines: () => undefined,
   saveWine: (wine) => Promise.resolve(wine),
 }

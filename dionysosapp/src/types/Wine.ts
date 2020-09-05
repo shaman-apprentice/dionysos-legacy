@@ -21,3 +21,7 @@ export interface Wine {
   comment?: string;
   image?: string; // href
 }
+
+export type WineDict = {
+  [RowKey: string]: Wine
+}

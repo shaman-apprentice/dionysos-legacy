@@ -1,4 +1,4 @@
-import { Wine } from '../types/wine';
+import { Wine, WineDict } from '../types/wine';
 
 const wineArray: Wine[] = [
   {
@@ -177,4 +177,4 @@ const wineArray: Wine[] = [
 export const wines = wineArray.reduce((acc, wine) => {
   acc[wine.RowKey] = wine;
   return acc;
-}, {} as {[RowKey: string]: Wine});
+}, {} as WineDict);
