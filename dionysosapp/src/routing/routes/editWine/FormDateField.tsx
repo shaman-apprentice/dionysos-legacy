@@ -24,7 +24,6 @@ export function FormWineDateField(props:  FormWineDateFieldProps) {
     label="Date"
     value={userInput}
     onChangeText={handleChangeDate}
-    onBlur={handleBlur('date')}
     errorMessage={(errors as any).date}
   />
 }

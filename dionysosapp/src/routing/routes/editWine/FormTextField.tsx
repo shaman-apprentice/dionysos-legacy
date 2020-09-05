@@ -15,7 +15,6 @@ export function FormTextField(props:  FormTextFieldProps) {
     label={props.wineField}
     value={String(props.wine[props.wineField] || '')}
     onChangeText={handleChangeText}
-    onBlur={handleBlur(props.wineField)}
   />
 }
 

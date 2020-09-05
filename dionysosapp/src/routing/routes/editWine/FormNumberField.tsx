@@ -33,7 +33,6 @@ export function FormNumberField(props:  FormNumberFieldProps) {
     label={props.wineField}
     value={displayValue}
     onChangeText={handleChangeNumber}
-    onBlur={handleBlur(props.wineField)}
     errorMessage={(errors as any)[props.wineField]}
   />
 }
