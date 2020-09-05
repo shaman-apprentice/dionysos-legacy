@@ -7,7 +7,7 @@ import { Button } from 'react-native-elements';
 import { Wine } from '../../../types/wine';
 import { AzureContext } from '../../../azureApi/AzureContext';
 import { FormTextField } from './FormTextField';
-import { FormWineTimestampField } from './FormTimestampField';
+import { FormWineDateField } from './FormDateField';
 import { FormSweetnessField } from './FormSweetnessField';
 import { FormNumberField } from './FormNumberField';
 
@@ -20,7 +20,7 @@ export function WineForm(props: { wine : Wine }) {
       onSubmit={(wine, actions) => saveWine(wine) }
     >
       {({ handleSubmit, values: wine, isSubmitting }) => <ScrollView>
-        <FormWineTimestampField wine={wine} />
+        <FormWineDateField wine={wine} />
         <FormTextField wine={wine} wineField="color" />
         <FormSweetnessField wine={wine} />
         <FormTextField wine={wine} wineField="area" />

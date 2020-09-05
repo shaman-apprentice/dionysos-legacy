@@ -5,18 +5,19 @@ export enum Sweetness {
   'sweet' = 'sweet',
 };
 
-export type Wine = {
-  PartitionKey: string,
-  RowKey: string,
-  Timestamp: number,
-  sweetness: Sweetness,
-  color: string,
-  rating: number,
-  area?: string,
-  grape?: string,
-  price?: number,
-  brand?: string,
-  vintage?: number,
-  comment?: string,
-  image?: string, // href
+export interface Wine {
+  PartitionKey: string;
+  RowKey: string;
+  Timestamp: number;
+  date: number;
+  sweetness: Sweetness;
+  color: string;
+  rating: number;
+  area?: string;
+  grape?: string;
+  price?: number;
+  brand?: string;
+  vintage?: number;
+  comment?: string;
+  image?: string; // href
 }
