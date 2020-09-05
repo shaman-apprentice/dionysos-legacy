@@ -43,23 +43,24 @@ export class AzureManager {
     }, {} as {[RowKey: string]: Wine});
   }
 
-  public async insertWine(wine: Wine): Promise<Wine> {
+  public async upsert(wine: Wine): Promise<Wine> {
     wine.PartitionKey = '1';
-    wine.RowKey = String(new Date().getTime()); // npm's uuid is not supported by mobile devices, but this should be good enough
-    const response = await fetch(`${this.host}wines?${this.sas}`, {
-      method: 'POST',
+    if (wine.RowKey  === '-1')
+      wine.RowKey  = String(new Date().getTime()); // npm's uuid is not supported by mobile devices, but this should be good enough
+
+    const response = await fetch(`${this.host}wines(PartitionKey='${wine.PartitionKey}',RowKey='${wine.RowKey}')?${this.sas}`, {
+      method: 'MERGE',
       headers: {
         'Accept': 'application/json;odata=nometadata',
         'Access-Control-Allow-Origin': this.host,
-        'Preference-Applied': 'return-content',
         'Content-Type': 'application/json;charset=utf-8',
       },
       body: JSON.stringify(wine),
     });
 
-    if (response.status !== 201)
-      throw new Error(await response.text());
+    if (response.status !== 204)
+      throw new Error(await response.text()); // todo show some alert to the user
 
-    return await response.json();
+    return wine;
   }
 }

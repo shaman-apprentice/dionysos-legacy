@@ -40,15 +40,11 @@ export function AzureContextProvider(props: React.PropsWithChildren<{}>) {
   }, [manager, setWines]);
 
   const saveWine = useCallback(async (wine: Wine) => {
-    if (wine.RowKey === '-1') {
-      wine = await manager!.insertWine(wine);
+    wine = await manager!.upsert(wine);
       setWines({
         ...wines,
         [wine.RowKey]: wine,
       });
-    } else {
-      // todo update wine
-    }
     
     history.push('/wine-overview');
     return wine;
