@@ -1,10 +1,10 @@
 import React, { useCallback, useMemo } from 'react';
 
+import { Platform } from 'react-native';
+import { Input } from 'react-native-elements';
 import { useFormikContext } from 'formik';
 import Picker from 'react-native-picker-select'
 import { Wine, Sweetness } from '../../../types/Wine';
-import { Input } from 'react-native-elements';
-import { Text, Platform } from 'react-native';
 
 export function FormSweetnessField() {
   return <Input
