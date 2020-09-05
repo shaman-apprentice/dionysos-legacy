@@ -6,19 +6,18 @@ import { Input } from 'react-native-elements';
 import { Wine } from '../../../types/wine';
 
 export function FormTextField(props:  FormTextFieldProps) {
-  const { handleBlur, setFieldValue } = useFormikContext();
+  const { setFieldValue, values: wine } = useFormikContext<Wine>();
   const handleChangeText = useCallback(input => {
     setFieldValue(props.wineField, input, false);
   }, []);
 
   return <Input 
     label={props.wineField}
-    value={String(props.wine[props.wineField] || '')}
+    value={String(wine[props.wineField] || '')}
     onChangeText={handleChangeText}
   />
 }
 
 interface FormTextFieldProps {
-  wine: Wine,
   wineField: keyof Wine,
 }

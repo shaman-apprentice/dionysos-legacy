@@ -6,10 +6,10 @@ import { Input } from 'react-native-elements';
 import { Wine } from '../../../types/wine';
 
 export function FormNumberField(props:  FormNumberFieldProps) {
-  const { handleBlur, setFieldValue, setFieldError, errors } = useFormikContext();
-  const [ displayValue, setDisplayValue ] = useState(props.wine[props.wineField] === undefined
+  const { values: wine, setFieldValue, setFieldError, errors } = useFormikContext<Wine>();
+  const [ displayValue, setDisplayValue ] = useState(wine[props.wineField] === undefined
     ? ''
-    : String(props.wine[props.wineField])
+    : String(wine[props.wineField])
   );
 
   const handleChangeNumber = useCallback((input: any) => {
@@ -38,6 +38,5 @@ export function FormNumberField(props:  FormNumberFieldProps) {
 }
 
 interface FormNumberFieldProps {
-  wine: Wine,
   wineField: keyof Wine,
 }

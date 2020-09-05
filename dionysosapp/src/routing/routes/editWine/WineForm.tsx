@@ -20,16 +20,16 @@ export function WineForm(props: { wine : Wine }) {
       onSubmit={(wine, actions) => upsertWine(wine) }
     >
       {({ handleSubmit, values: wine, isSubmitting, isValid }) => <ScrollView>
-        <FormWineDateField wine={wine} />
-        <FormTextField wine={wine} wineField="color" />
+        <FormWineDateField />
+        <FormTextField wineField="color" />
         <FormSweetnessField />
-        <FormTextField wine={wine} wineField="area" />
-        <FormTextField wine={wine} wineField="grape" />
-        <FormNumberField wine={wine} wineField="vintage" />
-        <FormNumberField wine={wine} wineField="price" />
-        <FormTextField wine={wine} wineField="brand" />
-        <FormTextField wine={wine} wineField="comment" />
-        <FormNumberField wine={wine} wineField="rating" />
+        <FormTextField wineField="area" />
+        <FormTextField wineField="grape" />
+        <FormNumberField wineField="vintage" />
+        <FormNumberField wineField="price" />
+        <FormTextField wineField="brand" />
+        <FormTextField wineField="comment" />
+        <FormNumberField wineField="rating" />
         <Button
           containerStyle={{ paddingTop: 8, width: '100%' }}
           title="Submit"

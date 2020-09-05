@@ -6,9 +6,9 @@ import { Input } from 'react-native-elements';
 import { Wine } from '../../../types/wine';
 import { parseDate, formatDate } from '../../../utils/dateHelper';
 
-export function FormWineDateField(props:  FormWineDateFieldProps) {
-  const { handleBlur, setFieldValue, setFieldError, errors } = useFormikContext();
-  const [ userInput, setUserInput ] = useState(formatDate(props.wine.date));
+export function FormWineDateField() {
+  const { values: wine, setFieldValue, setFieldError, errors } = useFormikContext<Wine>();
+  const [ userInput, setUserInput ] = useState(formatDate(wine.date));
 
   const handleChangeDate = useCallback(input => {
     setUserInput(input);
@@ -26,8 +26,4 @@ export function FormWineDateField(props:  FormWineDateFieldProps) {
     onChangeText={handleChangeDate}
     errorMessage={(errors as any).date}
   />
-}
-
-interface FormWineDateFieldProps {
-  wine: Wine,
 }
