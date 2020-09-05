@@ -7,6 +7,7 @@ const wines: {[RowKey: string]: Wine} = {
     RowKey: '1',
     price: 2,
     Timestamp: 1595059246710,
+    date: 1595059246710,
     color: 'white',
     sweetness: Sweetness.dry,
     rating: 5,
@@ -16,6 +17,7 @@ const wines: {[RowKey: string]: Wine} = {
     RowKey: '2',
     price: 12,
     Timestamp: 1595059246710,
+    date: 1595059246710,
     color: 'red',
     sweetness: Sweetness.dry,
     rating: 5,
@@ -23,7 +25,7 @@ const wines: {[RowKey: string]: Wine} = {
 }
 
 it('sorts one digit price before 2 digit price', () => {
-  const sorted = sort(wines, {Timestamp: true,price: true, rating: true});
+  const sorted = sort(wines, {date: true,price: true, rating: true});
   expect(sorted[0].RowKey).toBe('2');
   expect(sorted[1].RowKey).toBe('1');
 });

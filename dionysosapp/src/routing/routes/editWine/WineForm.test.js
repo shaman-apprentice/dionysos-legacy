@@ -9,6 +9,7 @@ it('does not modify the original wine', () => {
     PartitionKey: '1',
     RowKey: '-1',
     Timestamp: new Date('2020-01-02').getTime(),
+    date: new Date('2020-01-02').getTime(),
     rating: -1,
     color: 'red',
     sweetness: 'medium dry',

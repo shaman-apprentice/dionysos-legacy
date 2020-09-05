@@ -9,7 +9,7 @@ import {
 export const defaultContext: ISieveContext = {
   sortBy: {
     rating: true,
-    Timestamp: true,
+    date: true,
     price: true,
   },
   filterBy: {

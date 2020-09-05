@@ -9,7 +9,7 @@ import { Button } from 'react-native-elements';
 export function SortByOverlay(props: SortByOverlayProps) {
   return <Overlay {...props}>
     <View style={{alignItems: 'flex-start'}}>
-      <SortByField field="Timestamp" />
+      <SortByField field="date" />
       <SortByField field="rating" />
       <SortByField field="price" />
 

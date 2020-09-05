@@ -8,7 +8,7 @@ interface WineRowProps {
   item: {
     RowKey: string,
     rating: number,
-    Timestamp: number,
+    date: number,
     color: string,
     sweetness: Sweetness
   },
@@ -23,7 +23,7 @@ export default function WineRow(props: WineRowProps) {
   }}>
     <View style={styles.wineItem}>
       <Text>
-        {wine.rating} {formatDate(wine.Timestamp)} {wine.color} {wine.sweetness}
+        {wine.rating} {formatDate(wine.date)} {wine.color} {wine.sweetness}
       </Text>
     </View>
   </TouchableOpacity>

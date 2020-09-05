@@ -1,7 +1,7 @@
 import { Wine } from '../../../types/wine';
 import { SortBy, SortableWineProps, FilterableWineProps, FilterBy } from './sieveView/sieveViewTypes';
 
-const sortKeys: SortableWineProps[] = [ 'Timestamp','rating', 'price' ];
+const sortKeys: SortableWineProps[] = [ 'date','rating', 'price' ];
 const filterKeys: FilterableWineProps[] = [ 'color', 'sweetness', 'area', 'grape' ];
 
 export const sort = (wines: {[RowKey: string]: Wine}, sortBy: SortBy) =>

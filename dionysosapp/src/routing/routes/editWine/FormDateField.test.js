@@ -10,6 +10,7 @@ beforeEach(() => {
     PartitionKey: '1',
     RowKey: '-1',
     Timestamp: new Date('2020-01-02').getTime(),
+    date: new Date('2020-01-02').getTime(),
     rating: -1,
     color: 'red',
     sweetness: 'medium dry',
@@ -18,12 +19,12 @@ beforeEach(() => {
 
 it('initial formats date correctly', () => {
   const form = renderer.create(<WineForm wine={wine} />);
-  expect(form.root.findByProps({ label: 'Timestamp' }).props.value).toBe("02/01/2020"); 
+  expect(form.root.findByProps({ label: 'Date' }).props.value).toBe("02/01/2020"); 
 });
 
 it('has correct error message, if an invalid date is entered', () => {
   const form = renderer.create(<WineForm wine={wine} />);
-  const dateField = form.root.findByProps({ label: 'Timestamp' });
+  const dateField = form.root.findByProps({ label: 'Date' });
   act(() => {
     dateField.props.onChangeText('0h/01/2020');
   });
@@ -32,7 +33,7 @@ it('has correct error message, if an invalid date is entered', () => {
 
 it('shows the entered value, even if it is not a valid date', () => {
   const form = renderer.create(<WineForm wine={wine} />);
-  const dateField = form.root.findByProps({ label: 'Timestamp' });
+  const dateField = form.root.findByProps({ label: 'Date' });
   act(() => {
     dateField.props.onChangeText('0h/01/2020');
   });
