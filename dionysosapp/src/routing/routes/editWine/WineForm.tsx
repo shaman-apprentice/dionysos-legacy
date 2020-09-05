@@ -17,9 +17,7 @@ export function WineForm(props: { wine : Wine }) {
   return <View style={styles.form}>
     <Formik
       initialValues={props.wine}
-      onSubmit={async (wine, actions) => {
-        await saveWine(wine);
-      }}
+      onSubmit={(wine, actions) => saveWine(wine) }
     >
       {({ handleSubmit, values: wine, isSubmitting }) => <ScrollView>
         <FormWineTimestampField wine={wine} />
