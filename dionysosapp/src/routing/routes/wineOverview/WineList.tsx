@@ -1,5 +1,5 @@
-import React, { useContext, useMemo } from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import React, { useContext, useMemo, useState, useCallback } from 'react';
+import { StyleSheet, View, FlatList, Platform } from 'react-native';
 
 import { useHistory } from '../../router';
 import { AzureContext } from '../../../azureApi/AzureContext'
@@ -8,11 +8,19 @@ import WineRow from './WineRow';
 import { SieveView } from './sieveView/SieveView';
 import { SieveContext } from './sieveView/SieveContext';
 import { sort, filter } from './sieve';
+import { Button } from 'react-native-elements';
 
 export function WineList() {
-  const { wines } = useContext(AzureContext);
+  const { wines, getWines } = useContext(AzureContext);
   const { sortBy, filterBy } = useContext(SieveContext);
+  const [ isRefreshing, setIsRefreshing ] = useState(false);
   const history = useHistory();
+
+  const refresh = useCallback(async () => {
+    setIsRefreshing(true);
+    await getWines(); // todo: should be cancelable in case of site navigation
+    setIsRefreshing(true);
+  }, [getWines, setIsRefreshing]);
   
   const wines2Display = useMemo(() => {
     const filteredWines = filter(wines, filterBy);
@@ -20,6 +28,12 @@ export function WineList() {
   }, [wines, sortBy, filterBy])
 
   return <View style={styles.container}>
+    { Platform.OS === 'web' && <Button
+      style={{ marginBottom: 4 }}
+      disabled={isRefreshing}
+      title="Refresh"
+      onPress={refresh}
+    />}
     <FlatList
       ListHeaderComponent={SieveView}
       data={wines2Display}
@@ -28,6 +42,8 @@ export function WineList() {
         item={item.item}
         pushHistory={history.push}
       />}
+      refreshing={isRefreshing}
+      onRefresh={refresh}
     />
   </View>
 }
