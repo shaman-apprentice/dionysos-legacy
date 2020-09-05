@@ -4,6 +4,7 @@
   - spawn local server
   - start puppeteer
   - test in puppeteer
+- use "Emulated Storage Service" / 127.0.0.1:1000 for azure storage in dev mode
 
 # nice to have
 - wine list overview with icons for values and nice layout instead of plain text
