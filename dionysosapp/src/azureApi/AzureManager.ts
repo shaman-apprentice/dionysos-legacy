@@ -58,8 +58,10 @@ export class AzureManager {
       body: JSON.stringify(wine),
     });
 
-    if (response.status !== 204)
-      throw new Error(await response.text()); // todo show some alert to the user
+    if (response.status !== 204) {
+      this.logout();
+      throw new Error(await response.text()); // todo better error handling for cases like timeout or whatever
+    }
 
     return wine;
   }
