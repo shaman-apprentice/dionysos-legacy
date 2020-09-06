@@ -1,11 +1,9 @@
 {
-  "name": "dionysosapp",
-  "displayName": "Dionysos's App",
-  "icon": "assets/wine.svg",
   "expo": {
-    "name": "dionysosapp",
+    "name": "Dionysos's App",
+    "icon": "assets/wine.png",
     "slug": "dionysosapp",
-    "version": "1.0.0",
+    "version": "1.0.0-beta1",
     "platforms": [
       "ios",
       "android",
@@ -13,6 +11,7 @@
     ],
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "description": ""
   }
 }
