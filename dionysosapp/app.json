@@ -1,6 +1,7 @@
 {
   "name": "dionysosapp",
-  "displayName": "dionysosapp",
+  "displayName": "Dionysos's App",
+  "icon": "assets/wine.svg",
   "expo": {
     "name": "dionysosapp",
     "slug": "dionysosapp",
