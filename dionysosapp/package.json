@@ -3,9 +3,10 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "web": "expo start --web",
+    "web": "npx expo start --web",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "publish": "npm run test && npx expo-optimize && npx expo build:web --no-pwa && npx expo publish"
   },
   "dependencies": {
     "@types/react-router-dom": "^5.1.5",
