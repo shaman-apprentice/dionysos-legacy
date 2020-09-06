@@ -19,7 +19,7 @@ export function WineForm(props: { wine : Wine }) {
       initialValues={props.wine}
       onSubmit={(wine, actions) => upsertWine(wine) }
     >
-      {({ handleSubmit, values: wine, isSubmitting, isValid }) => <ScrollView>
+      {({ handleSubmit, values: wine, isSubmitting, isValid, dirty }) => <ScrollView>
         <FormWineDateField />
         <FormTextField wineField="color" />
         <FormSweetnessField />
@@ -34,7 +34,7 @@ export function WineForm(props: { wine : Wine }) {
           containerStyle={{ paddingTop: 8, width: '100%' }}
           title="Submit"
           onPress={handleSubmit as any}
-          disabled={isSubmitting || !isValid}
+          disabled={isSubmitting || !isValid || !dirty}
         />
       </ScrollView>}
     </Formik>
