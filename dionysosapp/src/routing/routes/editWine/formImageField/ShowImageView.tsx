@@ -4,6 +4,8 @@ import { Button } from 'react-native-elements';
 
 import { Overlay, OverlayProps } from '../../../../sharedComponents/overlay/Overlay';
 
+// https://react-native-elements.github.io/react-native-elements/docs/image/
+
 export function ShowImageView(props: ShowImageViewProps) {
   return <Overlay {...props}>
     <View style={{alignItems: 'flex-start'}}>
