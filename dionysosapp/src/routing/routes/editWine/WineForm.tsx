@@ -10,6 +10,7 @@ import { FormTextField } from './FormTextField';
 import { FormWineDateField } from './FormDateField';
 import { FormSweetnessField } from './FormSweetnessField';
 import { FormNumberField } from './FormNumberField';
+import { FormImageField } from './formImageField/FormImageField';
 
 export function WineForm(props: { wine : Wine }) {
   const { upsertWine } = useContext(AzureContext);
@@ -30,6 +31,8 @@ export function WineForm(props: { wine : Wine }) {
         <FormTextField wineField="brand" />
         <FormTextField wineField="comment" />
         <FormNumberField wineField="rating" />
+        <FormImageField />
+        
         <Button
           containerStyle={{ paddingTop: 8, width: '100%' }}
           title="Submit"
