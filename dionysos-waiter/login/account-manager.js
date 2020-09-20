@@ -1,6 +1,7 @@
 const azStorage = require('azure-storage');
 
 const tableService = azStorage.createTableService(process.env.dionysosvault_connection_string);
+const blobService = azStorage.createBlobService(process.env.dionysosvault_connection_string);
 
 module.exports.hasUser = (name, pw) => {
   const query = new azStorage.TableQuery()
@@ -19,15 +20,13 @@ module.exports.hasUser = (name, pw) => {
   });
 }
 
-module.exports.generateWinesTableCredentials = () => {
-  const now = new Date().getTime();
+const generateWinesTableCredentials = startTime => {
   const accessPolicy = {
     AccessPolicy: {
       Permissions: azStorage.TableUtilities.SharedAccessPermissions.QUERY
         + azStorage.TableUtilities.SharedAccessPermissions.ADD
         + azStorage.TableUtilities.SharedAccessPermissions.UPDATE,
-      Start: new Date(now - 900), // -15min in case of clocks out of sync
-      Expiry: new Date(now + 86400000), // expires in 24h
+      ...getStartAndEndTime(startTime),
     },
   };
 
@@ -36,3 +35,32 @@ module.exports.generateWinesTableCredentials = () => {
     host: tableService.host.primaryHost,
   };
 }
+
+const generateImageBlobCredentials = startTime => {
+  const accessPolicy = {
+    AccessPolicy: {
+      Permissions: azStorage.BlobUtilities.SharedAccessPermissions.READ
+        + azStorage.BlobUtilities.SharedAccessPermissions.WRITE
+        + azStorage.BlobUtilities.SharedAccessPermissions.LIST,
+      ...getStartAndEndTime(startTime),
+    },
+  };
+  const imageContainerName = 'dionysos-images';
+  
+  return {
+    sas: blobService.generateSharedAccessSignature(imageContainerName, undefined, accessPolicy),
+    host: blobService.host.primaryHost + imageContainerName,
+  };
+};
+
+const getStartAndEndTime = startTime => ({
+  Start: new Date(startTime - 900), // -15min in case of clocks out of sync
+  Expiry: new Date(startTime + 86400000), // expires in 24h
+});
+
+module.exports.createCredentials = startTime => {
+  return {
+    imageBlobCredentials: generateImageBlobCredentials(startTime),
+    wineTableCredentials: generateWinesTableCredentials(startTime),
+  };
+};
