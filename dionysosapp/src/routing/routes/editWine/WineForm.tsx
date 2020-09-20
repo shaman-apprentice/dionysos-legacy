@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 
 import { ScrollView, View, StyleSheet, Platform } from 'react-native';
 import { Formik } from 'formik';
@@ -15,10 +15,16 @@ import { FormImageField } from './formImageField/FormImageField';
 export function WineForm(props: { wine : Wine }) {
   const { upsertWine } = useContext(AzureContext);
 
+  const upsertCurrentWine = useCallback((wine: Wine) => {
+    return upsertWine(wine, props.wine);
+  }, [props.wine]);
+
   return <View style={styles.form}>
     <Formik
       initialValues={props.wine}
-      onSubmit={(wine, actions) => upsertWine(wine) }
+      onSubmit={(wine, formikHelpers) => {
+        upsertCurrentWine(wine);
+      } }
     >
       {({ handleSubmit, values: wine, isSubmitting, isValid, dirty }) => <ScrollView>
         <FormWineDateField />

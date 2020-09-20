@@ -1,9 +1,11 @@
+import { ContainerClient } from '@azure/storage-blob';
 import { Wine, WineDict } from '../types/wine';
 
 export class AzureManager {
   constructor(
     private host: string,
     private sas: string,
+    public imageContainerClient: ContainerClient,
     private logout: Function
   ) {}
 
@@ -19,8 +21,10 @@ export class AzureManager {
     if (loginResponse.status !== 200)
       throw new Error(await loginResponse.text());
   
-    const { host, sas } = await loginResponse.json();
-    return new AzureManager(host, sas, logout);
+    const { imageBlobCredentials, wineTableCredentials } = await loginResponse.json();
+    const cC = new ContainerClient(`${imageBlobCredentials.host}?${imageBlobCredentials.sas}`);
+
+    return new AzureManager(wineTableCredentials.host, wineTableCredentials.sas, cC, logout);
   }
 
   public async getWines() {
@@ -43,7 +47,15 @@ export class AzureManager {
     }, {} as WineDict);
   }
 
-  public async upsert(wine: Wine): Promise<Wine> {
+  public async upsert(wine: Wine, originalWine: Wine): Promise<Wine> {
+    if (wine.image !== originalWine.image) {
+      console.log("have to change image");
+    } else {
+      console.log("no change image");
+    }
+
+    return wine;
+
     wine.PartitionKey = '1';
     if (wine.RowKey  === '-1')
       wine.RowKey  = String(new Date().getTime()); // npm's uuid is not supported by mobile devices, but this should be good enough

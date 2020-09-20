@@ -7,5 +7,5 @@ export interface IAzureContext {
   manager: AzureManager | null;
   wines: WineDict;
   getWines: () => void;
-  upsertWine: (wine: Wine) => Promise<Wine>;
+  upsertWine: (wine: Wine, originalWine: Wine) => Promise<Wine>;
 }
