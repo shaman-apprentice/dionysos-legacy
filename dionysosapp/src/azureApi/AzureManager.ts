@@ -51,18 +51,14 @@ export class AzureManager {
   }
 
   public async upsert(wine: Wine, originalWine: Wine): Promise<Wine> {
-    if (wine.image !== originalWine.image) {
-      console.log("have to change image");
-      // todo upload image
-    } else {
-      console.log("no change image");
-    }
-
-    return wine;
-
     wine.PartitionKey = '1';
     if (wine.RowKey  === '-1')
       wine.RowKey  = String(new Date().getTime()); // npm's uuid is not supported by mobile devices, but this should be good enough
+
+    if (wine.image && wine.image !== originalWine.image) {
+      await this.uploadImage(wine.RowKey, wine.image);
+      wine.image = wine.RowKey;
+    } 
 
     const response = await fetch(`${this.tableHost}wines(PartitionKey='${wine.PartitionKey}',RowKey='${wine.RowKey}')?${this.tableSas}`, {
       method: 'MERGE',
@@ -96,5 +92,19 @@ export class AzureManager {
       }
       fr.readAsDataURL(blob)
     })
+  }
+
+  private async uploadImage(name: string, dataUri: string) {
+    const blobImage = await (await fetch(dataUri)).blob()
+    
+    const response = await fetch(`${this.imageHost}/${name}?${this.imageSas}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Length': String(blobImage.size),
+        'x-ms-blob-type': 'BlockBlob',
+      },
+      body: blobImage,
+    });
+
   }
 }
