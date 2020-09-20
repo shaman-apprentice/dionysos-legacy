@@ -11,7 +11,6 @@
     "publish": "npm run test && expo-optimize && npm run publish:web && expo publish"
   },
   "dependencies": {
-    "@azure/storage-blob": "^12.2.1",
     "@types/react-router-dom": "^5.1.5",
     "@types/react-router-native": "^5.1.0",
     "expo": "^38.0.0",

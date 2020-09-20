@@ -16,25 +16,10 @@ export function UploadImageView(props: UploadImageViewProps) {
   const [ dataUri, setDataUri ] = useState('');
 
   useEffect(() => {
-    console.log("hi from useEffect", dataUri, !props.isVisible);
     if (dataUri !== '' || !props.isVisible)
       return; 
 
-    (async () => {
-      const blobService = manager?.imageContainerClient.getBlobClient('wine.png'); 
-      const blobClient = await blobService?.download();
-      const blob = await blobClient?.blobBody;
-      if (!blob)
-        return;
-
-      const fr = new FileReader();
-      fr.onloadend = () => {
-        console.log('image loaded');
-        console.log(fr.result);
-        setDataUri(fr.result as any)
-      }
-      fr.readAsDataURL(blob)
-    })();
+    manager?.downloadImage('wine.png').then(setDataUri);
   }, [props.isVisible, dataUri, setDataUri]);
 
   const uploadImage = useCallback(async () => {
