@@ -3,7 +3,7 @@
     "name": "Dionysos's App",
     "icon": "assets/wine.png",
     "slug": "dionysosapp",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "platforms": [
       "ios",
       "android",

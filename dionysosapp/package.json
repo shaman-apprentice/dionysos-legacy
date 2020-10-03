@@ -8,7 +8,7 @@
     "start": "react-native start",
     "test": "jest",
     "publish:web": "rimraf web-build && expo build:web --no-pwa && npx rimraf web-build/**/*.js.map && cd web-build && git init && git add . && git commit -m \"publish\" && git remote add origin https://github.com/shaman-apprentice/dionysos-legacy.git && git push --force origin master:gh-pages",
-    "publish": "npm run test && expo-optimize && npm run publish:web && expo publish"
+    "publish": "npm run test && npx expo-optimize && npm run publish:web && expo publish"
   },
   "dependencies": {
     "@types/react-router-dom": "^5.1.5",
