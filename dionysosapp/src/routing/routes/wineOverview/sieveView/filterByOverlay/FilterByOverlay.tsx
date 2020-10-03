@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button } from 'react-native-elements';
 import { View } from 'react-native';
-import { Overlay, OverlayProps } from '../Overlay';
+import { Overlay, OverlayProps } from '../../../../../sharedComponents/overlay/Overlay';
 import { FilterByField } from './FilterByField';
 
 export function FilterByOverlay(props: FilterByOverlayProps) {

@@ -1,4 +1,4 @@
-const { hasUser, generateWinesTableCredentials } = require('./account-manager');
+const { hasUser, createCredentials } = require('./account-manager');
 
 module.exports = async function (context, req) {
   if (!req.body || !req.body.username || ! req.body.pw) {
@@ -13,7 +13,7 @@ module.exports = async function (context, req) {
   if (isValidUser)
     context.res = {
       contentType: 'application/json',
-      body: generateWinesTableCredentials()
+      body: createCredentials(new Date().getTime()),
     };
   else
     context.res = {

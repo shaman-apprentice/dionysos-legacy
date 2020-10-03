@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Overlay, OverlayProps } from '../Overlay';
+import { Overlay, OverlayProps } from '../../../../../sharedComponents/overlay/Overlay';
 import { SortByField } from './SortByField';
 import { View } from 'react-native';
 import { Button } from 'react-native-elements';

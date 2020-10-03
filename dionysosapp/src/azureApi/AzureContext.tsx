@@ -5,8 +5,8 @@ import { IAzureContext } from './IAzureContext';
 import { Wine, WineDict } from '../types/wine';
 import { AzureManager } from './AzureManager';
 
-const isDev = Boolean(__DEV__) && process.env.NODE_ENV !== 'test';
-// const isDev = false; // for connecting to azure
+// const isDev = Boolean(__DEV__) && process.env.NODE_ENV !== 'test';
+const isDev = false; // for connecting to azure
 const defaultContext: IAzureContext = {
   isLoggedIn: false,
   login: () => Promise.resolve(),
@@ -15,7 +15,7 @@ const defaultContext: IAzureContext = {
     ? require('./devWines').wines
     : {} as WineDict,
   getWines: () => undefined,
-  upsertWine: (wine) => Promise.resolve(wine),
+  upsertWine: (wine, originalWine) => Promise.resolve(wine),
 }
 
 export const AzureContext = React.createContext<IAzureContext>(defaultContext);
@@ -39,8 +39,8 @@ export function AzureContextProvider(props: React.PropsWithChildren<{}>) {
     setWines(await manager?.getWines() ?? {});
   }, [manager, setWines]);
 
-  const upsertWine = useCallback(async (wine: Wine) => {
-    wine = await manager!.upsert(wine);
+  const upsertWine = useCallback(async (wine: Wine, originalWine: Wine) => {
+    wine = await manager!.upsert(wine, originalWine);
     setWines({
       ...wines,
       [wine.RowKey]: wine,

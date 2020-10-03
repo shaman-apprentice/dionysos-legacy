@@ -2,8 +2,10 @@ import { Wine, WineDict } from '../types/wine';
 
 export class AzureManager {
   constructor(
-    private host: string,
-    private sas: string,
+    private tableHost: string,
+    private tableSas: string,
+    private imageHost: string,
+    private imageSas: string,
     private logout: Function
   ) {}
 
@@ -19,12 +21,17 @@ export class AzureManager {
     if (loginResponse.status !== 200)
       throw new Error(await loginResponse.text());
   
-    const { host, sas } = await loginResponse.json();
-    return new AzureManager(host, sas, logout);
+    const { imageBlobCredentials, wineTableCredentials } = await loginResponse.json();
+
+    return new AzureManager(
+      wineTableCredentials.host, wineTableCredentials.sas,
+      imageBlobCredentials.host, imageBlobCredentials.sas,
+      logout
+    );
   }
 
   public async getWines() {
-    const response = await fetch(`${this.host}wines?${this.sas}`, {
+    const response = await fetch(`${this.tableHost}wines?${this.tableSas}`, {
       headers: {
         'Accept': 'application/json;odata=nometadata',
       },
@@ -43,16 +50,21 @@ export class AzureManager {
     }, {} as WineDict);
   }
 
-  public async upsert(wine: Wine): Promise<Wine> {
+  public async upsert(wine: Wine, originalWine: Wine): Promise<Wine> {
     wine.PartitionKey = '1';
     if (wine.RowKey  === '-1')
       wine.RowKey  = String(new Date().getTime()); // npm's uuid is not supported by mobile devices, but this should be good enough
 
-    const response = await fetch(`${this.host}wines(PartitionKey='${wine.PartitionKey}',RowKey='${wine.RowKey}')?${this.sas}`, {
+    if (wine.image && wine.image !== originalWine.image) {
+      await this.uploadImage(wine.RowKey, wine.image);
+      wine.image = wine.RowKey;
+    } 
+
+    const response = await fetch(`${this.tableHost}wines(PartitionKey='${wine.PartitionKey}',RowKey='${wine.RowKey}')?${this.tableSas}`, {
       method: 'MERGE',
       headers: {
         'Accept': 'application/json;odata=nometadata',
-        'Access-Control-Allow-Origin': this.host,
+        'Access-Control-Allow-Origin': this.tableHost,
         'Content-Type': 'application/json;charset=utf-8',
       },
       body: JSON.stringify(wine),
@@ -64,5 +76,34 @@ export class AzureManager {
     }
 
     return wine;
+  }
+
+  public async downloadImage(name: string) {
+    const response = await fetch(`${this.imageHost}/${name}?${this.imageSas}`);
+    if (response.status !== 200)
+      return ''
+
+    const blob = await response.blob()
+
+    return new Promise<string>(resolve => {
+      const fr = new FileReader();
+      fr.onloadend = () => {
+        resolve(fr.result as string)
+      }
+      fr.readAsDataURL(blob)
+    })
+  }
+
+  private async uploadImage(name: string, dataUri: string) {
+    const blobImage = await (await fetch(dataUri)).blob()
+    
+    return fetch(`${this.imageHost}/${name}?${this.imageSas}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Length': String(blobImage.size),
+        'x-ms-blob-type': 'BlockBlob',
+      },
+      body: blobImage,
+    });
   }
 }
