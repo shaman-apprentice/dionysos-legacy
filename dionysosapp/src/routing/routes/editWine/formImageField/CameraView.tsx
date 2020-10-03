@@ -30,7 +30,9 @@ export function CameraView(props: CameraViewProps) {
 
   return <View style={{ flex: 1 }}>
     <Camera
+      key={'re-mount-me-when-ready-to-fix-android-bug-' + isCameraReady }
       style={{ flex: 1, maxWidth: 400 }}
+      useCamera2Api
       type={Camera.Constants.Type.back}
       ref={camera}
       onCameraReady={() => { setIsCameraReady(true); }}
