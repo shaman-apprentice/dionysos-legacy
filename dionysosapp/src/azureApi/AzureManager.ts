@@ -97,7 +97,7 @@ export class AzureManager {
   private async uploadImage(name: string, dataUri: string) {
     const blobImage = await (await fetch(dataUri)).blob()
     
-    const response = await fetch(`${this.imageHost}/${name}?${this.imageSas}`, {
+    return fetch(`${this.imageHost}/${name}?${this.imageSas}`, {
       method: 'PUT',
       headers: {
         'Content-Length': String(blobImage.size),
@@ -105,6 +105,5 @@ export class AzureManager {
       },
       body: blobImage,
     });
-
   }
 }
