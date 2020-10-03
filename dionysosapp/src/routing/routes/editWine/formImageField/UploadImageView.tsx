@@ -29,31 +29,35 @@ export function UploadImageView(props: UploadImageViewProps) {
   }, [setShowCameraView]);
   
   return <Overlay {...props}>
-    <View style={{alignItems: 'flex-start'}}>
-      <Image
-        key={wine.image /* without key a change in `imageUri` doesn't reload image */}
-        style={{ width: 250, height: 250 }}
-        source={{ uri: wine.image }}
-        PlaceholderContent={<Text>...</Text>}
-      />
-      <View style={styles.uploadRow}>
-        <Button
-          containerStyle={{ flexGrow: 1, marginRight: 8 }}
-          title="From disk"
-          onPress={loadImageFromDisk}
+    <>
+      <View>
+        <Image
+          key={wine.image /* without key a change in `imageUri` doesn't reload image */}
+          style={{ width: 250, height: 250 }}
+          source={{ uri: wine.image }}
+          PlaceholderContent={<Text>...</Text>}
         />
+
+        <View style={styles.uploadRow}>
+          <Button
+            containerStyle={{ flexGrow: 1, marginRight: 4 }}
+            title="From disk"
+            onPress={loadImageFromDisk}
+          />
+          <Button
+            containerStyle={{ flexGrow: 1, marginLeft: 4 }}
+            title="Take photo"
+            onPress={() => setShowCameraView(true)}
+          />
+        </View>
+
         <Button
-          containerStyle={{ flexGrow: 1 }}
-          title="Take photo"
-          onPress={() => setShowCameraView(true)}
+          containerStyle={styles.closeButton}
+          title="Close"
+          onPress={props.onBackdropPress}
         />
       </View>
 
-      <Button
-        containerStyle={styles.closeButton}
-        title="Close"
-        onPress={props.onBackdropPress}
-      />
       <Overlay
         isVisible={showCameraView}
         onBackdropPress={closeCameraView}
@@ -64,7 +68,7 @@ export function UploadImageView(props: UploadImageViewProps) {
           close={closeCameraView}
         />
       </Overlay>
-    </View>
+    </>
   </Overlay>
 }
 
@@ -76,7 +80,6 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   uploadRow: {
-    flex: 1,
     width: '100%',
     flexDirection: 'row',
     marginTop: 8,
